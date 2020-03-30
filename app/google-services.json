@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "699383155041",
+    "firebase_url": "https://honestherd.firebaseio.com",
+    "project_id": "honestherd",
+    "storage_bucket": "honestherd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699383155041:android:5d9d08c9959bb734b29d20",
+        "android_client_info": {
+          "package_name": "com.example.honestherd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699383155041-9pad8lguae1o4mamo9a35k1g4s3chf48.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVcfMskW1X27vmJnM8Dg7R1HOw8y7tcSE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699383155041-9pad8lguae1o4mamo9a35k1g4s3chf48.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
