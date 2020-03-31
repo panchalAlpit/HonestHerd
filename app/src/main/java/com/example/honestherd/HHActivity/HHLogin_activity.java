@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.honestherd.HHGlobal.HHSharedPrefrence;
+import com.example.honestherd.HHGlobal.Utils;
 import com.example.honestherd.MainActivity;
 import com.example.honestherd.R;
 import com.firebase.ui.auth.AuthUI;
@@ -67,6 +68,7 @@ public class HHLogin_activity extends AppCompatActivity implements View.OnClickL
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Log.e("TAG", "onActivityResult: "+user.getUid());
                 HHSharedPrefrence.SetLogin(HHLogin_activity.this,true);
+                HHSharedPrefrence.SetJointDate(HHLogin_activity.this, Utils.getDateFromate("yyyy-MM-dd"));
                 Intent intent = new Intent(HHLogin_activity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

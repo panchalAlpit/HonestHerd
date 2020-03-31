@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.hypertrack:hypertrack:4.1.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8834474328bc964d148e22f12e5bfcec/jetified-hypertrack-4.1.0/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8834474328bc964d148e22f12e5bfcec/jetified-hypertrack-4.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8834474328bc964d148e22f12e5bfcec/jetified-hypertrack-4.1.0/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hypertrack/hypertrack/4.1.0/31adae1bae0cb8d4712227afb9437a079f3e8ebc/hypertrack-4.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

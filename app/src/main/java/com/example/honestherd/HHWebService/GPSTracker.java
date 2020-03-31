@@ -21,6 +21,7 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.example.honestherd.R;
+import com.hypertrack.sdk.service.HyperTrackSDKService;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,7 +32,7 @@ public class GPSTracker extends Service implements LocationListener {
     // Get Class Name
     private static String TAG = "Chech";
 
-    private final Context mContext;
+    Context mContext;
 
     // flag for GPS Status
     boolean isGPSEnabled = false;
@@ -196,41 +197,7 @@ public class GPSTracker extends Service implements LocationListener {
         }
     }
 
-    /**
-     * Function to show settings alert dialog
-     */
-    public void showSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
-        //Setting Dialog Title
-        alertDialog.setTitle("GPSAlertDialogTitle");
-
-        //Setting Dialog Message
-        alertDialog.setMessage("GPSAlertDialogMessage");
-
-        //On Pressing Setting button
-        alertDialog.setPositiveButton("action_settings", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                mContext.startActivity(intent);
-            }
-        });
-
-        //On pressing cancel button
-        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                dialog.cancel();
-            }
-        });
-
-        alertDialog.show();
-    }
 
     /**
      * Get list of address by latitude and longitude
@@ -345,6 +312,16 @@ public class GPSTracker extends Service implements LocationListener {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    public GPSTracker() {
+        super();
+        onCreate();
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
     }
 }
 

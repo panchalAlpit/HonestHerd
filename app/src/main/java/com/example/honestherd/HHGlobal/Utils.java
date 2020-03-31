@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
@@ -25,6 +26,7 @@ public class Utils {
 
     //Fragment name
     public static final String FRAGMENT_MAP = "map_fragment";
+    public static final String FRAGMENT_feeling = "FEELING_fragment";
 
     public static String uTCToLocal( String datesToConvert,String formate) {
 
@@ -64,6 +66,22 @@ public class Utils {
                 e.printStackTrace();
             }
             return newDateStr;
+        }
+
+        public static  int NumberOFDays(String startdate, String currentDate){
+
+            SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+            int number = 0;
+            try {
+                Date date1 = myFormat.parse(startdate);
+                Date date2 = myFormat.parse(currentDate);
+                long diff = date2.getTime() - date1.getTime();
+                Log.e ("cccccc","Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+                number = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return number;
         }
 
 }

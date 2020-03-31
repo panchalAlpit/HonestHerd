@@ -6,6 +6,7 @@
     <string name="about">About</string>
     <string name="view_my_map">view my map</string>
     <string name="feeling_not">I\'m not feeling well</string>
+    <string name="not_feeling">not feeling well?</string>
     <string name="test_center">Test centers</string>
     <string name="delete_account">Delete account &amp; data</string>
     <string name="logout">logout</string>
@@ -16,4 +17,9 @@
     <string name="lets_beat">let\'s \n beat \n this \n together</string>
     <string name="please_sign">What do you say?</string>
     <string name="im_in">i\'m in</string>
+    <string name="data_policy">Our data policy</string>
+    <string name="export_map">Export My Map</string>
+    <string name="emergency_info">View Emergency Info</string>
+    <string name="our_community">Our Community</string>
+    <string name="view_centers">View Testing centers</string>
 </resources>

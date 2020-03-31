@@ -116,6 +116,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
 //        hyperTrack.requestPermissionsIfNecessary();
 //        hyperTrack.start();
 //        hyperTrack.setDeviceName("newRedmi10");
+        ((MainActivity)getContext()).hyperTrack.addTrackingListener(this);
 
         linear_menu_history = view.findViewById(R.id.linear_menu_history);
         mapView = (MapView) view.findViewById(R.id.map);
@@ -322,6 +323,8 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
     @Override
     public void onTrackingStart() {
         if (((MainActivity)getActivity()).hyperTrack.isRunning()){
+//            Map<String,Object> d = new HashMap<>();
+//            d.put("address", "Test");
             ((MainActivity)getActivity()).hyperTrack.addTripMarker(order);
         }
     }

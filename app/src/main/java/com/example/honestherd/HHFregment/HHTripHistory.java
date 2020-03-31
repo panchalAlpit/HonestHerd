@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 
 import com.example.honestherd.HHAdpater.HHHistory_adpater;
+import com.example.honestherd.HHGlobal.HHSharedPrefrence;
 import com.example.honestherd.HHGlobal.Utils;
 import com.example.honestherd.HHModel.HHHistory_Model;
 import com.example.honestherd.HHWebService.HHApiCall;
@@ -61,7 +62,7 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
     private HHHistory_adpater history_adpater;
     private AppCompatTextView txt_empty;
     private AppCompatButton btn_previous,btn_next;
-    int date_index = 0;
+    int date_index = 0,total_days = 0;
     private int mYear, mMonth, mDay;
     Calendar calendar = Calendar.getInstance();
 
@@ -87,14 +88,16 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
         btn_next = view.findViewById(R.id.btn_next);
         btn_previous.setOnClickListener(this);
         btn_next.setOnClickListener(this);
-        HyperTrack.getInstance(getContext(), "7pXsJ2QfvGFLjzyJG-dNUm99YT9iiqd0UsXNV6qHb9wPr0ebWQDlYmjEYMPn8KNjC8x-DA-19Yjg2urO8w9DPw");
-        HistoryApiCall(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+//        HyperTrack.getInstance(getContext(), "7pXsJ2QfvGFLjzyJG-dNUm99YT9iiqd0UsXNV6qHb9wPr0ebWQDlYmjEYMPn8KNjC8x-DA-19Yjg2urO8w9DPw");
+        HistoryApiCall( Utils.getDateFromate("yyyy-MM-dd"));
         ((MainActivity)getContext()).txt_date_map_fregment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DateTImePicker();
             }
         });
+        total_days = Utils.NumberOFDays(HHSharedPrefrence.getJoindate(getActivity()),Utils.getDateFromate("yyyy-MM-dd"));
+        Log.e("Number", "onCreateView: "+Utils.NumberOFDays("2020-03-25",Utils.getDateFromate("yyyy-MM-dd")) );
         return view;
     }
 
@@ -154,7 +157,7 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_previous:{
-                if (date_index<14){
+                if (date_index<total_days){
                     date_index++;
                     btn_next.setVisibility(View.VISIBLE);
                     ChangedDate(date_index);
@@ -200,7 +203,7 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
             mYear = c.get(Calendar.YEAR);
             mMonth = c.get(Calendar.MONTH);
             mDay = c.get(Calendar.DAY_OF_MONTH);
-            calendar.add(Calendar.DATE, -14);
+            calendar.add(Calendar.DATE, -Utils.NumberOFDays(HHSharedPrefrence.getJoindate(getActivity()),Utils.getDateFromate("yyyy-MM-dd")));
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                     new DatePickerDialog.OnDateSetListener() {
