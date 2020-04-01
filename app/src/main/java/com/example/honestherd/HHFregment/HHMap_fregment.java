@@ -147,13 +147,11 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
 
                 if (location != null) {
                     currentLocation = location;
-                    Toast.makeText(getContext(),
-                            currentLocation.getLatitude() + "" + currentLocation.getLongitude(),
-                            Toast.LENGTH_SHORT).show();
+
+//                    Toast.makeText(getContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude()+ "Test", Toast.LENGTH_SHORT).show();
 
 //                    SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
 //                    supportMapFragment.getMapAsync(MainActivity.this);
-
                 }
             }
         });
@@ -164,43 +162,25 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         mMap = googleMap;
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location");
-
-
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         marker = googleMap.addMarker(markerOptions);
-
-
-        //Initialize Google Play Services
-      /*  if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-//                buildGoogleApiClient();
-                mMap.setMyLocationEnabled(true);
-            }
-        } else {
-//            buildGoogleApiClient();
-            mMap.setMyLocationEnabled(true);
-        }*/
-
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (ContextCompat.checkSelfPermission(getContext(),
-                            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(getContext(), "Permission Granted", Toast.LENGTH_SHORT).show();
-                        LocationServices.FusedLocationApi.requestLocationUpdates(
-                                mGoogleApiClient, mLocationRequest, this);
-
+                        Log.e("CheckPermission", "onRequestPermissionsResult:  Accept");
+                        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                       // fetchLocation();
                     }
                 } else {
+                    Log.e("CheckPermission", "onRequestPermissionsResult:  Failed");
                     Toast.makeText(getContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
                 }
                 return;

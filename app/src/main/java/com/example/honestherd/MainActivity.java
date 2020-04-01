@@ -1,5 +1,6 @@
 package com.example.honestherd;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -31,8 +32,12 @@ import com.example.honestherd.HHFregment.HHMap_fregment;
 import com.example.honestherd.HHFregment.HHTripHistory;
 import com.example.honestherd.HHGlobal.HHSharedPrefrence;
 import com.example.honestherd.HHGlobal.Utils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hypertrack.sdk.CoreSDKProvider;
 import com.hypertrack.sdk.HyperTrack;
@@ -46,21 +51,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements   View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int REQUEST_ACCESS_FINE_LOCATION = 10;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     Map<String, Object> param = new HashMap<>();
 
-    AppCompatImageView img_drawer_menu,txt_cancel_drawer;
+    AppCompatImageView img_drawer_menu, txt_cancel_drawer;
     public static LinearLayout linear_dateselect;
     public static HyperTrack hyperTrack;
     LinearLayout linear_menu_history;
-    private AppCompatTextView txt_viewmap,txt_logout,txt_emergency_info,txt_datapolicy,txt_delete_account,txt_my_coins;
+    private AppCompatTextView txt_viewmap, txt_logout, txt_emergency_info, txt_datapolicy, txt_delete_account, txt_my_coins;
     public static AppCompatTextView txt_date_map_fregment;
     public static AppCompatTextView txt_month_map_fregment;
     DrawerLayout drawer;
+    FirebaseFirestore firebaseFirestore;
+    FirebaseUser firebaseUser;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -77,21 +84,20 @@ public class MainActivity extends AppCompatActivity implements   View.OnClickLis
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
-
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         HyperTrack.enableDebugLogging();
         hyperTrack = HyperTrack.getInstance(MainActivity.this, "7pXsJ2QfvGFLjzyJG-dNUm99YT9iiqd0UsXNV6qHb9wPr0ebWQDlYmjEYMPn8KNjC8x-DA-19Yjg2urO8w9DPw");
-
         hyperTrack.requestPermissionsIfNecessary();
-
         hyperTrack.start();
 
-        if (firebaseUser.getPhoneNumber() !=null){
-            hyperTrack.setDeviceName(firebaseUser.getPhoneNumber().toString());
+        if (firebaseUser.getPhoneNumber() != null) {
+            hyperTrack.setDeviceName(firebaseUser.getUid());
         }
-
         initMathod();
-
+        if (HHSharedPrefrence.getAddData(MainActivity.this)) {
+            addUserDetails();
+        }
         Log.e("TAG", "onCreate: " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 //        Log.e("ssss", "onCreate: " + firebaseUser.getPhoneNumber());
 //        Log.e("ssss", "onCreate: " + hyperTrack.getDeviceID());
@@ -119,16 +125,15 @@ public class MainActivity extends AppCompatActivity implements   View.OnClickLis
         txt_logout.setOnClickListener(this);
         txt_emergency_info.setOnClickListener(this);
 
-        txt_my_coins.setTypeface(Typeface.createFromAsset(getAssets(), "din_bold.ttf"));
-        txt_logout.setTypeface(Typeface.createFromAsset(getAssets(), "din_bold.ttf"));
-        txt_delete_account.setTypeface(Typeface.createFromAsset(getAssets(), "din_bold.ttf"));
-        txt_viewmap.setTypeface(Typeface.createFromAsset(getAssets(), "din_bold.ttf"));
-        txt_emergency_info.setTypeface(Typeface.createFromAsset(getAssets(), "din_bold.ttf"));
-        txt_datapolicy.setTypeface(Typeface.createFromAsset(getAssets(), "din_bold.ttf"));
-        txt_date_map_fregment.setTypeface(Typeface.createFromAsset(getAssets(), "din_bold.ttf"));
-        txt_month_map_fregment.setTypeface(Typeface.createFromAsset(getAssets(), "din_medium.ttf"));
+        txt_my_coins.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+        txt_logout.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+        txt_delete_account.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+        txt_viewmap.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+        txt_emergency_info.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+        txt_datapolicy.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+        txt_date_map_fregment.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+        txt_month_map_fregment.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
         setCurrentDate();
-
     }
 
     private void setCurrentDate() {
@@ -136,83 +141,71 @@ public class MainActivity extends AppCompatActivity implements   View.OnClickLis
         txt_month_map_fregment.setText(Utils.getDateFromate("MMM yyyy"));
     }
 
-    public void addHistoryFragment(){
-       Fragment f = new HHTripHistory();
-       FragmentManager manager = getSupportFragmentManager();
-       String backStateName = f.getClass().getName();
-       FragmentTransaction transaction = manager.beginTransaction();
-       transaction.replace(R.id.frame_layout, f,"history");
-       transaction.addToBackStack(null);
-       transaction.commit();
-   }
+    public void addHistoryFragment() {
+        Fragment f = new HHTripHistory();
+        FragmentManager manager = getSupportFragmentManager();
+        String backStateName = f.getClass().getName();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame_layout, f, "history");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
     public void addFragment() {
         //first time call this method
         Fragment f = new HHMap_fregment();
         FragmentManager manager = getSupportFragmentManager();
         String backStateName = f.getClass().getName();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frame_layout, f,Utils.FRAGMENT_MAP);
+        transaction.replace(R.id.frame_layout, f, Utils.FRAGMENT_MAP);
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    public void addFragementFeeling_well(){
+    public void addFragementFeeling_well() {
         Fragment f = new HHFeeling_well_Fragment();
         FragmentManager manager = getSupportFragmentManager();
         String backStateName = f.getClass().getName();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frame_layout, f,Utils.FRAGMENT_feeling);
+        transaction.replace(R.id.frame_layout, f, Utils.FRAGMENT_feeling);
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("", "onResume");
-
-    }
-
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.img_drawer_menu:{
-            drawer.openDrawer(Gravity.RIGHT);
-            break;
+            case R.id.img_drawer_menu: {
+                drawer.openDrawer(Gravity.RIGHT);
+                break;
             }
-            case R.id.txt_cancel_drawer:{
+            case R.id.txt_cancel_drawer: {
                 drawer.closeDrawers();
                 break;
             }
-            case R.id.txt_viewmap:{
+            case R.id.txt_viewmap: {
                 Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
-                Log.e("TAG", "onClick: "+f.getTag() );
-                if (!f.getTag().equals(Utils.FRAGMENT_MAP)){
+                Log.e("TAG", "onClick: " + f.getTag());
+                if (!f.getTag().equals(Utils.FRAGMENT_MAP)) {
                     addFragment();
                 }
                 CloseDrawer();
                 break;
             }
-            case R.id.txt_logout:{
+            case R.id.txt_logout: {
                 FirebaseAuth.getInstance().signOut();
                 CloseDrawer();
-                HHSharedPrefrence.SetLogin(MainActivity.this,false);
+                HHSharedPrefrence.SetLogin(MainActivity.this, false);
                 Intent intent = new Intent(MainActivity.this, HHLogin_activity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//mak
                 startActivity(intent);
                 break;
             }
-            case R.id.txt_emergency_info:{
+            case R.id.txt_emergency_info: {
                 Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
-                Log.e("TAG", "onClick: "+f.getTag() );
-                if (!f.getTag().equals(Utils.FRAGMENT_feeling)){
+                Log.e("TAG", "onClick: " + f.getTag());
+                if (!f.getTag().equals(Utils.FRAGMENT_feeling)) {
                     addFragementFeeling_well();
                 }
                 CloseDrawer();
@@ -222,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements   View.OnClickLis
         }
     }
 
-    void CloseDrawer(){
+    void CloseDrawer() {
         drawer.closeDrawers();
     }
 
@@ -230,16 +223,40 @@ public class MainActivity extends AppCompatActivity implements   View.OnClickLis
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHMap_fregment) {
             finish();
-        }else {
+        } else {
             super.onBackPressed();
             if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHMap_fregment) {
                 setCurrentDate();
             }
-            
+
         }
-
-
     }
+
+    void addUserDetails() {
+        // Create a new user with a first and last name
+        Map<String, Object> user = new HashMap<>();
+        user.put("firebaseUserID", firebaseUser.getUid());
+        user.put("hyperTrackDeviceID", hyperTrack.getDeviceID());
+        user.put("phoneNumber", firebaseUser.getPhoneNumber());
+
+// Add a new document with a generated ID
+        firebaseFirestore.collection("userInfo")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        HHSharedPrefrence.addUserDetails(MainActivity.this,false);
+                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error adding document", e);
+                    }
+                });
+    }
+
 }
 
 

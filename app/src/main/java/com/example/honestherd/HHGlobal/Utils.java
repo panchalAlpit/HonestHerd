@@ -28,6 +28,10 @@ public class Utils {
     public static final String FRAGMENT_MAP = "map_fragment";
     public static final String FRAGMENT_feeling = "FEELING_fragment";
 
+    //FontName
+    public static final String DIN_BOLD = "din_bold.ttf";
+    public static final String DIN_MEDIUM = "din_medium.ttf";
+
     public static String uTCToLocal( String datesToConvert,String formate) {
 
         String dateToReturn = datesToConvert;

@@ -7,6 +7,7 @@ public class HHSharedPrefrence {
     private static final String PREF_NAME = "HonestHerd";
     private static final String LOGIN = "login";
     private static final String JOINDATE = "joindate";
+    private static final String ADD_DATA = "add_data";
 
 
     public static void SetLogin(Context context,boolean login){
@@ -35,4 +36,19 @@ public class HHSharedPrefrence {
         SharedPreferences pref = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return pref.getString(JOINDATE,"");
     }
+
+    public  static void addUserDetails(Context context,Boolean isadded){
+        SharedPreferences prefSignupData = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+        editor = prefSignupData.edit();
+        editor.putBoolean(ADD_DATA, isadded);
+        editor.apply();
+        editor.commit();
+    }
+
+    public static boolean getAddData(Context context){
+        SharedPreferences pref = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return pref.getBoolean(ADD_DATA,true);
+    }
+
 }
