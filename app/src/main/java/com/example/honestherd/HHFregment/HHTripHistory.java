@@ -127,7 +127,18 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
                                 history_model.setAddress(object.getJSONObject(Utils.DATA).getJSONObject(Utils.METADATA).getString(Utils.ADDRESS));
                                 arrayList_historyModel.add(history_model);
                             }
+                        }else if (object.getString(Utils.TYPE).equals(Utils.DEVICE_STATUS)){
+                            HHHistory_Model history_model = new HHHistory_Model();
+                            history_model.setType(object.getString(Utils.TYPE));
+                            history_model.setSdate(Utils.uTCToLocal(object.getJSONObject(Utils.DATA).getJSONObject(Utils.START).getString(Utils.RECORDED_AT),"dd-MMMM-yyyy"));
+                            history_model.setS_time(Utils.uTCToLocal(object.getJSONObject(Utils.DATA).getJSONObject(Utils.START).getString(Utils.RECORDED_AT),"hh:mm a"));
+                            if (object.getJSONObject(Utils.DATA).has(Utils.ADDRESS)){
+                                history_model.setAddress(object.getJSONObject(Utils.DATA).getString(Utils.ADDRESS));
+                                arrayList_historyModel.add(history_model);
+                            }
+
                         }
+
                     }
 
                     history_adpater = new HHHistory_adpater(getActivity(),arrayList_historyModel);

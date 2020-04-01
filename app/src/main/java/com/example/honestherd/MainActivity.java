@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 FirebaseAuth.getInstance().signOut();
                 CloseDrawer();
                 HHSharedPrefrence.SetLogin(MainActivity.this, false);
+                HHSharedPrefrence.ClearSession(MainActivity.this);
                 Intent intent = new Intent(MainActivity.this, HHLogin_activity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//mak
                 startActivity(intent);
@@ -209,7 +210,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     addFragementFeeling_well();
                 }
                 CloseDrawer();
-
                 break;
             }
         }

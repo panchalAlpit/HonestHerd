@@ -39,6 +39,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -126,6 +127,9 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
+               // boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
+                MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(getContext(),R.raw.map_style);
+                mMap.setMapStyle(mapStyleOptions);
             }
         });
         linear_menu_history.setOnClickListener(this);
@@ -147,9 +151,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
 
                 if (location != null) {
                     currentLocation = location;
-
 //                    Toast.makeText(getContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude()+ "Test", Toast.LENGTH_SHORT).show();
-
 //                    SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
 //                    supportMapFragment.getMapAsync(MainActivity.this);
                 }

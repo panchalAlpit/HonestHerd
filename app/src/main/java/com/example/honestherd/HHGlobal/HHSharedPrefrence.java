@@ -50,5 +50,11 @@ public class HHSharedPrefrence {
         SharedPreferences pref = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return pref.getBoolean(ADD_DATA,true);
     }
+    public static void ClearSession(Context context){
+        SharedPreferences preferences =context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 
 }

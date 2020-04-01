@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,7 @@ import java.util.List;
 
 public class HHLogin_activity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
-    AppCompatTextView txt_im_in_login;
+    AppCompatTextView txt_im_in_login,txt_title;
     List<AuthUI.IdpConfig> providers;
     int RC_SIGN_IN = 10;
     @Override
@@ -40,6 +41,10 @@ public class HHLogin_activity extends AppCompatActivity implements View.OnClickL
 
     private void init() {
         txt_im_in_login = findViewById(R.id.txt_im_in_login);
+        txt_title = findViewById(R.id.txt_title);
+
+        txt_im_in_login.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+        txt_title.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_im_in_login.setOnClickListener(this);
     }
 

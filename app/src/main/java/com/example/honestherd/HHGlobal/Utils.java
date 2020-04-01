@@ -19,10 +19,12 @@ public class Utils {
     public static final String MARKERS = "markers";
     public static final String TYPE = "type";
     public static final String DATA = "data";
+    public static final String START = "start";
     public static final String METADATA = "metadata";
     public static final String RECORDED_AT = "recorded_at";
     public static final String ADDRESS = "address";
     public static final String TRIP_MARKER = "trip_marker";
+    public static final String DEVICE_STATUS = "device_status";
 
     //Fragment name
     public static final String FRAGMENT_MAP = "map_fragment";
