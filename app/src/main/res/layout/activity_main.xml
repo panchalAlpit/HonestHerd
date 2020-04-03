@@ -59,10 +59,10 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
                     android:layout_margin="10dp"
                     android:padding="5dp"
-                    app:srcCompat="@drawable/icon" />
+                    app:srcCompat="@drawable/app_icon_new" />
 
             </LinearLayout>
 
@@ -106,79 +106,10 @@
             android:id="@+id/frame_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/linear_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view" />
 
-        <LinearLayout
-            android:id="@+id/linear_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/black"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:visibility="gone"
-            android:weightSum="3"
-            app:layout_constraintBottom_toBottomOf="parent">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/rectangle_yellow"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
-                    android:text="BY TRAIN"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/pink_dots"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
-                    android:text="BY TRAIN"
-                    android:textColor="#949494"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/green_dots"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
-                    android:text="BY TRAIN"
-                    android:textColor="#949494"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -186,8 +117,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="right"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@color/dark_color">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -224,8 +155,8 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon" />
+                        android:layout_height="80dp"
+                        android:src="@drawable/app_icon_new" />
 
                 </LinearLayout>
 
@@ -243,31 +174,33 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:background="@color/dark_color"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_datapolicy"
+                    android:id="@+id/txt_share_world"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:paddingTop="22dp"
+                    android:paddingTop="25dp"
                     android:paddingRight="15dp"
-                    android:paddingBottom="22dp"
-                    android:text="@string/data_policy"
+                    android:text="@string/share_world"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
-            </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_clipboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:textSize="10sp"
+                    android:text="@string/clipboard"
+                    android:paddingBottom="10dp"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="20dp"
-                android:background="@color/borderview_color" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -275,7 +208,8 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/dark_color"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2"
+                android:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_viewmap"
@@ -304,23 +238,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:background="@color/dark_color"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_emergency_info"
+                    android:id="@+id/txt_assessment_tool"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:paddingTop="25dp"
                     android:paddingRight="15dp"
-                    android:paddingBottom="25dp"
-                    android:text="@string/emergency_info"
+                    android:text="@string/assessment_tool"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_diagnosis_project"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:textSize="10sp"
+                    android:text="@string/diagnosis_project"
+                    android:paddingBottom="10dp"/>
+
+
             </LinearLayout>
 
             <View
@@ -334,23 +277,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:background="@color/dark_color"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_delete_account"
+                    android:id="@+id/txt_export_my_path"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:paddingTop="25dp"
                     android:paddingRight="15dp"
-                    android:paddingBottom="25dp"
-                    android:text="@string/delete_account"
+                    android:text="@string/export_my_path"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_xml_export"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:textSize="10sp"
+                    android:text="@string/xml_export"
+                    android:paddingBottom="10dp"/>
+
+
             </LinearLayout>
 
             <View
@@ -364,24 +316,223 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:background="@color/dark_color"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_logout"
+                    android:id="@+id/txt_near_test_center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:paddingTop="25dp"
                     android:paddingRight="15dp"
-                    android:paddingBottom="25dp"
-                    android:text="@string/our_community"
+                    android:text="@string/near_test_center"
+                    android:textAllCaps="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_sub_near_test_center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:textSize="10sp"
+                    android:text="@string/coming_soon"
+                    android:paddingBottom="10dp"/>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/borderview_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@color/dark_color"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_datapolicy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/data_policy"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_privacy_seriously"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="15dp"
+                    android:textSize="10sp"
+                    android:text="@string/privacy_seriously"
+                    android:paddingBottom="10dp"/>
+
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/borderview_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@color/dark_color"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_follow_twitter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/follow_twitter"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_news_version"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="15dp"
+                    android:textSize="10sp"
+                    android:text="@string/news_version"
+                    android:paddingBottom="10dp"/>
+
+            </LinearLayout>
+
+            <!--            <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:background="@color/dark_color"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_emergency_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="15dp"
+                                android:paddingTop="25dp"
+                                android:paddingRight="15dp"
+                                android:paddingBottom="25dp"
+                                android:text="@string/emergency_info"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="20dp"
+                            android:background="@color/borderview_color" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:background="@color/dark_color"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_delete_account"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="15dp"
+                                android:paddingTop="25dp"
+                                android:paddingRight="15dp"
+                                android:paddingBottom="25dp"
+                                android:text="@string/delete_account"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="20dp"
+                            android:background="@color/borderview_color" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:background="@color/dark_color"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_datapolicy"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="15dp"
+                                android:paddingTop="22dp"
+                                android:paddingRight="15dp"
+                                android:paddingBottom="22dp"
+                                android:text="@string/data_policy"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="20dp"
+                            android:background="@color/borderview_color" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:background="@color/dark_color"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_logout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="15dp"
+                                android:paddingTop="25dp"
+                                android:paddingRight="15dp"
+                                android:paddingBottom="25dp"
+                                android:text="@string/our_community"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>-->
 
             <View
                 android:layout_width="match_parent"
@@ -393,27 +544,48 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
+                android:gravity="bottom"
+                android:weightSum="10">
 
-                android:gravity="bottom">
-
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_my_coins"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="25dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="25dp"
-                    android:text="@string/my_coins"
-                    android:textAllCaps="true"
-                    android:textColor="@color/green"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_weight="6"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_rectangle">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_my_coins"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="25dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/redeem_coins"
+                        android:drawableRight="@drawable/database"
+                        android:textAllCaps="true"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/unseleted"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_sub_my_coins"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/coming_soon"
+                        android:paddingStart="15dp"
+                        android:textSize="10sp"
+                        android:paddingBottom="15dp"/>
+
+                </LinearLayout>
+
 
                 <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="80dp"
@@ -435,6 +607,7 @@
                             android:backgroundTint="@color/green" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_total_coins"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -450,6 +623,17 @@
 
             </LinearLayout>
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_betheherd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/betheherd"
+                android:textSize="30sp"
+                android:textAllCaps="true"
+                android:paddingEnd="15dp"
+                android:layout_marginBottom="45dp"
+                android:textColor="@color/unseleted_1"
+                android:gravity="right"/>
         </LinearLayout>
     </ScrollView>
 </androidx.drawerlayout.widget.DrawerLayout>

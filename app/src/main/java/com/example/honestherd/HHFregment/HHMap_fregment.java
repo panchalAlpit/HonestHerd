@@ -13,6 +13,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -36,6 +37,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -84,6 +86,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
 //    HyperTrack hyperTrack;
     LinearLayout linear_menu_history;
      Map<String, Object> order;
+    private AppCompatTextView txt_place,txt_walk,txt_vehicle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,8 +122,8 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
 //        hyperTrack.setDeviceName("newRedmi10");
         ((MainActivity)getContext()).hyperTrack.addTrackingListener(this);
 
-        linear_menu_history = view.findViewById(R.id.linear_menu_history);
-        mapView = (MapView) view.findViewById(R.id.map);
+
+        init(view);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(new OnMapReadyCallback() {
@@ -135,6 +138,18 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         linear_menu_history.setOnClickListener(this);
         fetchLocation();
         return view;
+    }
+
+    void  init(View view){
+        linear_menu_history = view.findViewById(R.id.linear_menu_history);
+        mapView = (MapView) view.findViewById(R.id.map);
+        txt_place = view.findViewById(R.id.txt_place);
+        txt_walk = view.findViewById(R.id.txt_walk);
+        txt_vehicle = view.findViewById(R.id.txt_vehicle);
+
+        txt_walk.setOnClickListener(this);
+        txt_place.setOnClickListener(this);
+        txt_vehicle.setOnClickListener(this);
     }
 
     private void fetchLocation() {
@@ -163,10 +178,11 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location");
+        MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new));
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         marker = googleMap.addMarker(markerOptions);
+
     }
 
     @Override
@@ -234,7 +250,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
                 currentLocation = location;
                 getAddressFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
                 LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location");
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new));
 
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
@@ -294,6 +310,24 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
                 ((MainActivity)getActivity()).addHistoryFragment();
                 break;
             }
+            case R.id.txt_vehicle:{
+                setDefualtPropertise();
+                txt_vehicle.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.rectangle_green),null,null,null);
+                txt_vehicle.setTextColor(getContext().getResources().getColor(R.color.unseleted));
+                break;
+            }
+            case R.id.txt_walk:{
+                setDefualtPropertise();
+                txt_walk.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.rectangle_green),null,null,null);
+                txt_walk.setTextColor(getContext().getResources().getColor(R.color.white));
+                break;
+            }
+            case R.id.txt_place:{
+                setDefualtPropertise();
+                txt_place.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.rectangle_yellow),null,null,null);
+                txt_place.setTextColor(getContext().getResources().getColor(R.color.white));
+                break;
+            }
         }
     }
 
@@ -307,7 +341,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         if (((MainActivity)getActivity()).hyperTrack.isRunning()){
 //            Map<String,Object> d = new HashMap<>();
 //            d.put("address", "Test");
-            ((MainActivity)getActivity()).hyperTrack.addTripMarker(order);
+//            ((MainActivity)getActivity()).hyperTrack.addTripMarker(order);
         }
     }
 
@@ -316,6 +350,16 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
 
     }
     // TODO: Rename method, update argument and hook method into UI event
+
+    void setDefualtPropertise(){
+        txt_place.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.yellow_dots),null,null,null);
+        txt_walk.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.pink_dots),null,null,null);
+        txt_vehicle.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.green_dots),null,null,null);
+
+        txt_walk.setTextColor(getContext().getResources().getColor(R.color.unseleted));
+        txt_place.setTextColor(getContext().getResources().getColor(R.color.unseleted));
+        txt_vehicle.setTextColor(getContext().getResources().getColor(R.color.unseleted));
+    }
 
 }
 

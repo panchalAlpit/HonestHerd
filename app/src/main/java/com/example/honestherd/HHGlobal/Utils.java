@@ -1,7 +1,10 @@
 package com.example.honestherd.HHGlobal;
 
+import android.net.Uri;
 import android.util.Log;
 
+import java.net.URI;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
+    public static final Uri WEBURL = Uri.parse("https://honestherd.com/");
     public static final String publishKey = "7pXsJ2QfvGFLjzyJG-dNUm99YT9iiqd0UsXNV6qHb9wPr0ebWQDlYmjEYMPn8KNjC8x-DA-19Yjg2urO8w9DPw";
     public static final String Account_id = "X43jMR2erQh3C460rGVWrCLi2Tw";
     public static final String SecretKey = "eWiCn0_PQ5vPI8UTIk0vbOTOGONAwEIQaJ16qq6xz4diT2OerZk3jg";
@@ -25,6 +29,9 @@ public class Utils {
     public static final String ADDRESS = "address";
     public static final String TRIP_MARKER = "trip_marker";
     public static final String DEVICE_STATUS = "device_status";
+
+    public static final String FIREBASE_USERID = "firebaseUserID";
+    public static final String USERPOINTS = "userPoints";
 
     //Fragment name
     public static final String FRAGMENT_MAP = "map_fragment";

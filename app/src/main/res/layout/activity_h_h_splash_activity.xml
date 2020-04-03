@@ -6,11 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".HHActivity.HHSplash_activity"
     android:gravity="center"
+    android:orientation="vertical"
     android:background="@drawable/background">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         app:srcCompat="@drawable/app_icon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="v 1.0"
+        android:textColor="@color/green"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

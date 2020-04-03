@@ -13,13 +13,31 @@
     <string name="my_coins">My coins</string>
     <string name="terms_use">Terms of use</string>
     <string name="dummy">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</string>
-    <string name="agree">Agree</string>
+    <string name="agree">Agree with Proceed</string>
     <string name="lets_beat">let\'s \n beat \n this \n together</string>
     <string name="please_sign">What do you say?</string>
-    <string name="im_in">i\'m in</string>
+    <string name="get_started">Get Started</string>
     <string name="data_policy">Our data policy</string>
     <string name="export_map">Export My Map</string>
     <string name="emergency_info">View Emergency Info</string>
     <string name="our_community">Our Community</string>
     <string name="view_centers">View Testing centers</string>
+
+    <string name="share_world">Be the herd share the world</string>
+    <string name="clipboard">Click to copy honestherd.com to your clipboard</string>
+    <string name="assessment_tool">Self assessment tool</string>
+    <string name="diagnosis_project">By the Human Diagnosis Project</string>
+    <string name="export_my_path">Export my path trace </string>
+    <string name="xml_export">A 14 Day XML Export of Lat,Long and Time Stamp Will be Downloaded</string>
+    <string name="near_test_center">view nearby test centers</string>
+    <string name="coming_soon">Coming soon</string>
+    <string name="privacy_seriously">Honest Herd takes privacy seriously</string>
+    <string name="follow_twitter">Follow us on twitter</string>
+    <string name="news_version">For the latest news and version releases</string>
+    <string name="redeem_coins">Redeem Coins</string>
+    <string name="betheherd">#Be\nthe\nherd</string>
+
+<!--    <string name="term_policy">"Test</string>-->
+    <string name="term_policy">Honest Herd takes privacy seriously and aims to use your information (personal and location data) only when deemed absolutely necessary.The information, including but not limited to text, graphics, images, and other material on Honest Herd is neither intended to be nor should be understood as medical opinion, advice or diagnosis of any condition. Honest Herd simply provides an easy way to track your movement and interaction so as to gauge any possible contact with COVID-19, and related symptoms.
+By proceeding further, you agree to our [ Privacy Policy and Terms of Service] - underline in the bracket that will be linked to our website\'s tos. \nWhere do we store data? \nHow we use this data? \n Who owns this data? </string>
 </resources>

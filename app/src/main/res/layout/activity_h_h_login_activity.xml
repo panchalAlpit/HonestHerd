@@ -12,9 +12,9 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_icon_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_margin="25dp"
-        app:srcCompat="@drawable/icon"
+        app:srcCompat="@drawable/app_icon_new"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -38,7 +38,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:layout_marginTop="80dp"
-        android:textSize="50sp"
+        android:textSize="60sp"
         android:layout_marginBottom="30dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -55,13 +55,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/txt_im_in_login"/>
+        app:layout_constraintBottom_toTopOf="@id/txt_im_in_login"
+        android:visibility="gone"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_im_in_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/im_in"
+        android:text="@string/get_started"
         android:textSize="30sp"
         app:textAllCaps="true"
         android:paddingBottom="12dp"

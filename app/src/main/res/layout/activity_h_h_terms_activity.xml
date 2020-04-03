@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,9 +22,9 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_margin="25dp"
-            app:srcCompat="@drawable/icon" />
+            app:srcCompat="@drawable/app_icon_new" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_termof_use"
@@ -41,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:gravity="center"
-            android:text="@string/dummy"
+            android:text="@string/term_policy"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
@@ -52,9 +55,9 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:background="@drawable/green_rectangle"
-            android:paddingStart="70dp"
+            android:paddingStart="30dp"
             android:paddingTop="12dp"
-            android:paddingEnd="70dp"
+            android:paddingEnd="30dp"
             android:paddingBottom="12dp"
             android:text="@string/agree"
             android:textAllCaps="true"
@@ -64,3 +67,5 @@
     </LinearLayout>
 
 </FrameLayout>
+
+</ScrollView>

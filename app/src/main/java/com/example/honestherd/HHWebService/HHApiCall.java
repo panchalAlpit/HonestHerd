@@ -98,7 +98,8 @@ public class HHApiCall  extends AsyncTask<String, JSONObject, JSONObject> {
                                         progressDialog.dismiss();
                                     }
                                 }
-
+                            }else {
+                                onUpdateListener.onUpdateComplete(response,false);
                             }
 
                         }
