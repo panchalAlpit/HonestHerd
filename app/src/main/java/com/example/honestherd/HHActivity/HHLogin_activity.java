@@ -1,5 +1,6 @@
 package com.example.honestherd.HHActivity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -17,6 +18,9 @@ import com.example.honestherd.MainActivity;
 import com.example.honestherd.R;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -52,12 +56,38 @@ public class HHLogin_activity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
        switch (v.getId()){
            case R.id.txt_im_in_login:{
-               startActivityForResult(
+               mAuth.signInAnonymously()
+                       .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                           @Override
+                           public void onComplete(@NonNull Task<AuthResult> task) {
+                               if (task.isSuccessful()) {
+                                   // Sign in success, update UI with the signed-in user's information
+                                   Log.d("TAG", "signInAnonymously:success");
+                                   FirebaseUser user = mAuth.getCurrentUser();
+                                   Log.e("TAG", "onActivityResult: "+user.getUid());
+                                   HHSharedPrefrence.SetLogin(HHLogin_activity.this,true);
+                                   HHSharedPrefrence.SetJointDate(HHLogin_activity.this, Utils.getDateFromate("yyyy-MM-dd"));
+                                   Intent intent = new Intent(HHLogin_activity.this, MainActivity.class);
+                                   startActivity(intent);
+                                   finish();
+                               } else {
+                                   // If sign in fails, display a message to the user.
+                                   Log.w("TAG", "signInAnonymously:failure", task.getException());
+                                   Toast.makeText(HHLogin_activity.this, "Authentication failed.",
+                                           Toast.LENGTH_SHORT).show();
+                                   HHSharedPrefrence.SetLogin(HHLogin_activity.this,false);
+                               }
+
+                               // ...
+                           }
+                       });
+
+               /*startActivityForResult(
                        AuthUI.getInstance()
                                .createSignInIntentBuilder()
                                .setAvailableProviders(providers)
                                .build(),
-                       RC_SIGN_IN);
+                       RC_SIGN_IN);*/
            }
        }
     }

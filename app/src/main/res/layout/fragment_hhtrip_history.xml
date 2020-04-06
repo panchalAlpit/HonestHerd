@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".HHFregment.HHTripHistory"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_custom_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark_color"
+        android:visibility="gone"/>
+<FrameLayout
+    android:id="@+id/frame_triphistory"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HHFregment.HHTripHistory">
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_history"
@@ -19,7 +31,6 @@
         android:text="History Empty"
         android:textSize="20sp"
         android:gravity="center"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,5 +66,5 @@
                 android:textAllCaps="false"/>
         </LinearLayout>
     </LinearLayout>
-
 </FrameLayout>
+</LinearLayout>

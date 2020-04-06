@@ -32,6 +32,9 @@ public class Utils {
 
     public static final String FIREBASE_USERID = "firebaseUserID";
     public static final String USERPOINTS = "userPoints";
+    public static final String USERPOINTSLOGS = "userPointsLogs";
+    public static final String AWARDEDFORDATE = "awardedForDate";
+    public static final String POINTSCHANGE = "pointsChange";
 
     //Fragment name
     public static final String FRAGMENT_MAP = "map_fragment";

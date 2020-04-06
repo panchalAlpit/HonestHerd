@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     Map<String, Object> param = new HashMap<>();
-
     AppCompatImageView img_drawer_menu, txt_cancel_drawer;
     public static LinearLayout linear_dateselect;
     public static HyperTrack hyperTrack;
@@ -291,7 +290,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void FetchTotalCoins(){
-
         firebaseFirestore.collection(Utils.USERPOINTS)
                 .whereEqualTo(Utils.FIREBASE_USERID, firebaseUser.getUid())
                 .get()

@@ -1,13 +1,17 @@
 package com.example.honestherd.HHFregment;
 
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,25 +20,42 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
+import android.widget.GridView;
 
+import com.example.honestherd.HHAdpater.HHDateSelectionAdpater;
 import com.example.honestherd.HHAdpater.HHHistory_adpater;
 import com.example.honestherd.HHGlobal.HHSharedPrefrence;
+import com.example.honestherd.HHGlobal.OnItemClickListener;
 import com.example.honestherd.HHGlobal.Utils;
+import com.example.honestherd.HHModel.HHDateModel;
 import com.example.honestherd.HHModel.HHHistory_Model;
 import com.example.honestherd.HHWebService.HHApiCall;
 import com.example.honestherd.HHWebService.OnUpdateListener;
 import com.example.honestherd.MainActivity;
 import com.example.honestherd.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hypertrack.sdk.HyperTrack;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 
 public class HHTripHistory extends Fragment implements View.OnClickListener {
@@ -58,6 +79,8 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
      */
     // TODO: Rename and change types and number of parameters
 
+    private FrameLayout frame_triphistory;
+    private RecyclerView recycle_custom_date;
     private RecyclerView recycle_history;
     private HHHistory_adpater history_adpater;
     private AppCompatTextView txt_empty;
@@ -65,42 +88,183 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
     int date_index = 0,total_days = 0;
     private int mYear, mMonth, mDay;
     Calendar calendar = Calendar.getInstance();
-
+    HHDateSelectionAdpater adpaterSelection;
+    ArrayList<HHDateModel> listOfDates = new ArrayList<>();
+    Date startDate;
+    FirebaseFirestore firebaseFirestore;
+    FirebaseUser firebaseUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hhtrip_history, container, false);
-        recycle_history = view.findViewById(R.id.recycle_history);
-        txt_empty = view.findViewById(R.id.txt_empty);
-        btn_previous = view.findViewById(R.id.btn_previous);
-        btn_next = view.findViewById(R.id.btn_next);
-        btn_previous.setOnClickListener(this);
-        btn_next.setOnClickListener(this);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        init(view);
+
 //        HyperTrack.getInstance(getContext(), "7pXsJ2QfvGFLjzyJG-dNUm99YT9iiqd0UsXNV6qHb9wPr0ebWQDlYmjEYMPn8KNjC8x-DA-19Yjg2urO8w9DPw");
         HistoryApiCall( Utils.getDateFromate("yyyy-MM-dd"));
-        ((MainActivity)getContext()).txt_date_map_fregment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DateTImePicker();
-            }
-        });
+        CustomCalendar();
         total_days = Utils.NumberOFDays(HHSharedPrefrence.getJoindate(getActivity()),Utils.getDateFromate("yyyy-MM-dd"));
         Log.e("Number", "onCreateView: "+Utils.NumberOFDays("2020-03-25",Utils.getDateFromate("yyyy-MM-dd")) );
         return view;
     }
 
+    void init(View view){
+        recycle_history = view.findViewById(R.id.recycle_history);
+        frame_triphistory = view.findViewById(R.id.frame_triphistory);
+        recycle_custom_date = view.findViewById(R.id.recycle_custom_date);
+
+        txt_empty = view.findViewById(R.id.txt_empty);
+        btn_previous = view.findViewById(R.id.btn_previous);
+        btn_next = view.findViewById(R.id.btn_next);
+
+        frame_triphistory.setVisibility(View.VISIBLE);
+        recycle_custom_date.setVisibility(View.GONE);
+
+        btn_previous.setOnClickListener(this);
+        btn_next.setOnClickListener(this);
+
+        ((MainActivity)getContext()).txt_date_map_fregment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                DateTImePicker();
+                frame_triphistory.setVisibility(View.GONE);
+                recycle_custom_date.setVisibility(View.VISIBLE);
+
+            }
+        });
+    }
+
+    private void CustomCalendar() {
+        adpaterSelection = new HHDateSelectionAdpater(getContext(), getListOfDates(), new OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void OnItemClickListener(int position, ArrayList<HHDateModel> models) {
+                if (models.get(position).isActive()){
+                    frame_triphistory.setVisibility(View.VISIBLE);
+                    recycle_custom_date.setVisibility(View.GONE);
+                    HistoryApiCall(models.get(position).getSdate());
+                    ((MainActivity)getContext()).txt_date_map_fregment.setText(Utils.getFormateDate("dd",models.get(position).getSdate()));
+                    ((MainActivity)getContext()).txt_month_map_fregment.setText(Utils.getFormateDate("MMM yyyy",models.get(position).getSdate()));
+                }
+            }
+        });
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),3);
+        recycle_custom_date.setLayoutManager(gridLayoutManager);
+        recycle_custom_date.setAdapter(adpaterSelection);
+        UpdateCoin();
+    }
+
+    public void UpdateCoin(){
+        for (int i =0;i<listOfDates.size();i++){
+            if (listOfDates.get(i).isActive()){
+                FetchTotalCoins(listOfDates.get(i).getSdate(),i);
+            }
+        }
+        adpaterSelection.notifyDataSetChanged();
+    }
+
+    public ArrayList<HHDateModel> getListOfDates() {
+
+        listOfDates.clear();
+
+        Calendar LoginCal = GregorianCalendar.getInstance();
+
+        LoginCal.add(Calendar.DATE, -Utils.NumberOFDays(HHSharedPrefrence.getJoindate(getActivity()),Utils.getDateFromate("yyyy-MM-dd")));
+        Date Logindate = LoginCal.getTime();
+        Log.e("TAG","LOGIN DATE == "+Logindate);
+
+        //currentDate
+        Calendar TodayCal = GregorianCalendar.getInstance();
+        TodayCal.setTime(new Date());
+        Date TodayDate = TodayCal.getTime();
+        Log.e("TAG","CURRENT DATE == "+TodayDate);
+
+        //find the diff in Days
+
+        long diff = TodayDate.getTime() - Logindate.getTime();
+        long hours = ((diff / 1000) / 60) / 60;
+        long days = hours / 24;
+
+        if( days > 14){
+
+            int temp = (int) days - 14;
+            Calendar updateCal = GregorianCalendar.getInstance();
+            updateCal.setTime(Logindate);
+            updateCal.add(Calendar.DAY_OF_YEAR, temp);
+            Date updateDate = updateCal.getTime();
+            startDate = updateDate;
+
+        }else{
+            startDate = Logindate;
+        }
+
+        for (int i = 0 ; i < 14; i++) {
+
+            Boolean isActive;
+            Calendar cal = GregorianCalendar.getInstance();
+            cal.setTime(startDate);
+            cal.add(Calendar.DAY_OF_YEAR, i);
+            Date date = cal.getTime();
+
+            String day = String.valueOf(date.getDate());
+            String month = new DateFormatSymbols().getMonths()[date.getMonth()];
+            String year = String.valueOf(date.getYear() + 1900);
+            isActive =  ( i<=days ) ? true : false;
+            HHDateModel dateModel = new HHDateModel();
+            dateModel.setDay(day);
+            dateModel.setMonth(month);
+            dateModel.setYear(year);
+            dateModel.setActive(isActive);
+            Log.e("CheckMonth", "getListOfDates: "+(date.getMonth()+1)+"  "+month );
+            dateModel.setSdate(Utils.getFormateDate("yyyy-MM-dd",year+"-"+(date.getMonth()+1)+"-"+day));
+            if (isActive){
+//                dateModel.setCoins(FetchTotalCoins(Utils.getFormateDate("yyyy-MM-dd",year+"-"+date.getMonth()+"-"+day)));
+            }
+            listOfDates.add(dateModel);
+        }
+        return listOfDates;
+    }
+
+
+    public void FetchTotalCoins(final String fetchs, final int index){
+        Log.e("TAG", "FetchTotalCoins: "+fetchs +"  "+firebaseUser.getUid());
+        final String[] spoint = new String[0];
+        firebaseFirestore.collection(Utils.USERPOINTSLOGS)
+                .whereEqualTo(Utils.FIREBASE_USERID, firebaseUser.getUid())
+                .whereEqualTo(Utils.AWARDEDFORDATE,fetchs)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                         
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                Log.d("TAGID", document.getId() + " => " + document.getId());
+                                 String s = document.get(Utils.POINTSCHANGE).toString();
+                                Log.e("CheckCoins", "onComplete: "+s +" "+fetchs+" --- "+document.getId());
+                                listOfDates.get(index).setCoins(s);
+                            }
+
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+
+                        adpaterSelection.notifyDataSetChanged();
+                    }
+                });
+
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void HistoryApiCall(String date) {

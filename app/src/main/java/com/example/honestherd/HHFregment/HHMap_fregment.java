@@ -3,6 +3,7 @@ package com.example.honestherd.HHFregment;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -25,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.honestherd.HHGlobal.Utils;
 import com.example.honestherd.HHWebService.GPSTracker;
 import com.example.honestherd.MainActivity;
 import com.example.honestherd.R;
@@ -146,6 +148,9 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         txt_place = view.findViewById(R.id.txt_place);
         txt_walk = view.findViewById(R.id.txt_walk);
         txt_vehicle = view.findViewById(R.id.txt_vehicle);
+        txt_vehicle.setTypeface(Typeface.createFromAsset(getContext().getResources().getAssets(), Utils.DIN_BOLD));
+        txt_walk.setTypeface(Typeface.createFromAsset(getContext().getResources().getAssets(), Utils.DIN_BOLD));
+        txt_place.setTypeface(Typeface.createFromAsset(getContext().getResources().getAssets(), Utils.DIN_BOLD));
 
         txt_walk.setOnClickListener(this);
         txt_place.setOnClickListener(this);
@@ -312,19 +317,19 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
             }
             case R.id.txt_vehicle:{
                 setDefualtPropertise();
-                txt_vehicle.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.rectangle_green),null,null,null);
-                txt_vehicle.setTextColor(getContext().getResources().getColor(R.color.unseleted));
+                txt_vehicle.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.green_line),null,null,null);
+                txt_vehicle.setTextColor(getContext().getResources().getColor(R.color.white));
                 break;
             }
             case R.id.txt_walk:{
                 setDefualtPropertise();
-                txt_walk.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.rectangle_green),null,null,null);
+                txt_walk.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.pink_line),null,null,null);
                 txt_walk.setTextColor(getContext().getResources().getColor(R.color.white));
                 break;
             }
             case R.id.txt_place:{
                 setDefualtPropertise();
-                txt_place.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.rectangle_yellow),null,null,null);
+                txt_place.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.yellow_line),null,null,null);
                 txt_place.setTextColor(getContext().getResources().getColor(R.color.white));
                 break;
             }
@@ -341,7 +346,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         if (((MainActivity)getActivity()).hyperTrack.isRunning()){
 //            Map<String,Object> d = new HashMap<>();
 //            d.put("address", "Test");
-//            ((MainActivity)getActivity()).hyperTrack.addTripMarker(order);
+            ((MainActivity)getActivity()).hyperTrack.addTripMarker(order);
         }
     }
 

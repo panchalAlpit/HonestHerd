@@ -50,7 +50,7 @@
                 android:id="@+id/txt_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/rectangle_yellow"
+                android:drawableLeft="@drawable/yellow_line"
                 android:drawablePadding="10dp"
                 android:gravity="center"
                 android:text="In Place"
