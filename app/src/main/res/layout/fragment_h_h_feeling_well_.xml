@@ -84,7 +84,7 @@
                 android:paddingTop="12dp"
                 android:paddingEnd="30dp"
                 android:paddingBottom="12dp"
-                android:text="@string/i_feel_well"
+                android:text="@string/i_feel_sick"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />

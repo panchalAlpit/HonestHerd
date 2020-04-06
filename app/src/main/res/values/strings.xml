@@ -28,6 +28,7 @@
     <string name="assessment_tool">Self assessment tool</string>
     <string name="diagnosis_project">By the Human Diagnosis Project</string>
     <string name="export_my_path">Export my path trace </string>
+    <string name="export_my_trace">Export my trace </string>
     <string name="xml_export">A 14 Day XML Export of Lat,Long and Time Stamp Will be Downloaded</string>
     <string name="near_test_center">view nearby test centers</string>
     <string name="coming_soon">Coming soon</string>
@@ -43,6 +44,13 @@
     <string name="how_you_feel">How\ndo\nyou\nfeel?</string>
     <string name="i_feel_well">I feel Well</string>
     <string name="i_feel_sick">I feel Sick</string>
+    <string name="nextstep">Next\nSteps?</string>
+    <string name="self_assessment">Self assessment</string>
+    <string name="my_help_center">My help center</string>
+
+    <string name="self_assessment_subtitle">A 5 min self assessment test by the team at HumanDX</string>
+    <string name="my_help_center_subtitle">A local helping to heelp guide you through next steps</string>
+    <string name="export_my_trace_subtitle">Export your last 14 day map trace for govt./medical professional</string>
     <!--    <string name="term_policy">"Test</string>-->
     <string name="term_policy">Honest Herd takes privacy seriously and aims to use your information (personal and location data) only when deemed absolutely necessary.The information, including but not limited to text, graphics, images, and other material on Honest Herd is neither intended to be nor should be understood as medical opinion, advice or diagnosis of any condition. Honest Herd simply provides an easy way to track your movement and interaction so as to gauge any possible contact with COVID-19, and related symptoms.
 By proceeding further, you agree to our [ Privacy Policy and Terms of Service] - underline in the bracket that will be linked to our website\'s tos. \nWhere do we store data? \nHow we use this data? \n Who owns this data? </string>

@@ -39,6 +39,7 @@ public class Utils {
     //Fragment name
     public static final String FRAGMENT_MAP = "map_fragment";
     public static final String FRAGMENT_feeling = "FEELING_fragment";
+    public static final String FRAGMENT_NextStep = "NextStep_fragment";
 
     //FontName
     public static final String DIN_BOLD = "din_bold.ttf";

@@ -58,9 +58,20 @@ public class HHFeeling_well_Fragment extends Fragment implements View.OnClickLis
                 break;
             }
             case R.id.linear_feel_sick:{
-
+                AddNextStepFragment();
             }
         }
+    }
+
+    public void AddNextStepFragment(){
+
+        Fragment f = new HHNextStepFragment();
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        String backStateName = f.getClass().getName();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame_layout, f, Utils.FRAGMENT_NextStep);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     public void addFragment() {
