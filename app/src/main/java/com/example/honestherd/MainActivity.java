@@ -118,7 +118,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void initMathod() {
-        addFragment();
+//        addFragment();
+        addFragementFeeling_well();
         txt_share_world  =findViewById(R.id.txt_share_world);
         txt_assessment_tool = findViewById(R.id.txt_assessment_tool);
         txt_export_my_path = findViewById(R.id.txt_export_my_path);
@@ -260,7 +261,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 OpenBrowser();
             }
             case R.id.txt_follow_twitter:{
-                OpenBrowser();
+//                OpenBrowser();
+                FirebaseAuth.getInstance().signOut();
+                CloseDrawer();
+                HHSharedPrefrence.SetLogin(MainActivity.this, false);
+                HHSharedPrefrence.ClearSession(MainActivity.this);
+                Intent intent = new Intent(MainActivity.this, HHLogin_activity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//mak
+                startActivity(intent);
                 break;
             }
             /*case R.id.txt_logout: {
@@ -321,11 +329,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHMap_fregment) {
+        if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHFeeling_well_Fragment) {
             finish();
         } else {
             super.onBackPressed();
-            if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHMap_fregment) {
+            if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHFeeling_well_Fragment) {
                 setCurrentDate();
             }
 

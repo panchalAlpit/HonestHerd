@@ -37,8 +37,7 @@ public class HHLogin_activity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_h_h_login_activity);
         mAuth = FirebaseAuth.getInstance();
-        providers = Arrays.asList(
-                new AuthUI.IdpConfig.PhoneBuilder().build());
+        providers = Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
         init();
 
     }
@@ -56,6 +55,7 @@ public class HHLogin_activity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
        switch (v.getId()){
            case R.id.txt_im_in_login:{
+
                mAuth.signInAnonymously()
                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                            @Override

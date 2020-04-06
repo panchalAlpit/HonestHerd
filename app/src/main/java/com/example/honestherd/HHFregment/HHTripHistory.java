@@ -247,7 +247,7 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                         
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
                                 Log.d("TAGID", document.getId() + " => " + document.getId());

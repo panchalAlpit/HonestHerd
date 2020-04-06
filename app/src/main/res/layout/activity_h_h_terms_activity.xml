@@ -12,7 +12,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="300dp"
-        android:layout_gravity="bottom"
+        android:layout_gravity="center"
         android:background="@drawable/background_theme" />
 
     <LinearLayout
@@ -22,7 +22,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_margin="25dp"
             app:srcCompat="@drawable/app_icon_new" />
 
@@ -32,10 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:gravity="center"
-            android:text="@string/terms_use"
+            android:text="@string/welcome"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:textSize="23sp"
+            android:textSize="35sp"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -49,20 +49,45 @@
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txt_agree"
-            android:layout_width="wrap_content"
+            android:id="@+id/txt_privacypolicy"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_margin="20dp"
-            android:background="@drawable/green_rectangle"
-            android:paddingStart="30dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="30dp"
-            android:paddingBottom="12dp"
-            android:text="@string/agree"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/border_rectangle"
+            android:layout_margin="20dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:tint="@color/green"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/correct_icon"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="12dp"
+                android:text="@string/join_herd"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

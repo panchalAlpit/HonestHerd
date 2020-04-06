@@ -37,7 +37,13 @@
     <string name="redeem_coins">Redeem Coins</string>
     <string name="betheherd">#Be\nthe\nherd</string>
 
-<!--    <string name="term_policy">"Test</string>-->
+    <string name="welcome">Welcome.</string>
+    <string name="join_herd">Join the herd</string>
+    <string name="privacy_policy">By proceeding further and clicking on JOINING THE HERD, you agree to our, </string>
+    <string name="how_you_feel">How\ndo\nyou\nfeel?</string>
+    <string name="i_feel_well">I feel Well</string>
+    <string name="i_feel_sick">I feel Sick</string>
+    <!--    <string name="term_policy">"Test</string>-->
     <string name="term_policy">Honest Herd takes privacy seriously and aims to use your information (personal and location data) only when deemed absolutely necessary.The information, including but not limited to text, graphics, images, and other material on Honest Herd is neither intended to be nor should be understood as medical opinion, advice or diagnosis of any condition. Honest Herd simply provides an easy way to track your movement and interaction so as to gauge any possible contact with COVID-19, and related symptoms.
 By proceeding further, you agree to our [ Privacy Policy and Terms of Service] - underline in the bracket that will be linked to our website\'s tos. \nWhere do we store data? \nHow we use this data? \n Who owns this data? </string>
 </resources>
