@@ -1,13 +1,16 @@
 package com.example.honestherd.HHFregment;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.honestherd.HHGlobal.Utils;
 import com.example.honestherd.R;
 
 /**
@@ -17,14 +20,7 @@ import com.example.honestherd.R;
  */
 public class HHNextStepFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private AppCompatTextView txt_self_assessment,txt_self_assessment_subtitle,txt_my_help_center,txt_my_help_center_subtitle,txt_export_my_trace,txt_export_my_trace_subtitle;
     public HHNextStepFragment() {
         // Required empty public constructor
     }
@@ -41,8 +37,6 @@ public class HHNextStepFragment extends Fragment {
     public static HHNextStepFragment newInstance(String param1, String param2) {
         HHNextStepFragment fragment = new HHNextStepFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,16 +44,34 @@ public class HHNextStepFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_h_h_next_step, container, false);
+        View view = inflater.inflate(R.layout.fragment_h_h_next_step, container, false);
+        init(view);
+        return view;
+    }
+
+    private void init(View view) {
+        txt_self_assessment = view.findViewById(R.id.txt_self_assessment);
+        txt_my_help_center = view.findViewById(R.id.txt_my_help_center);
+        txt_export_my_trace = view.findViewById(R.id.txt_export_my_trace);
+
+        txt_self_assessment_subtitle = view.findViewById(R.id.txt_self_assessment_subtitle);
+        txt_my_help_center_subtitle = view.findViewById(R.id.txt_my_help_center_subtitle);
+        txt_export_my_trace_subtitle = view.findViewById(R.id.txt_export_my_trace_subtitle);
+
+        txt_self_assessment.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_BOLD));
+        txt_my_help_center.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_BOLD));
+        txt_export_my_trace.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_BOLD));
+        
+        txt_self_assessment_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));
+        txt_my_help_center_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));
+        txt_export_my_trace_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));
+
     }
 }
