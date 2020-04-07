@@ -8,6 +8,8 @@ public class HHSharedPrefrence {
     private static final String LOGIN = "login";
     private static final String JOINDATE = "joindate";
     private static final String ADD_DATA = "add_data";
+    private static final String HEALTHLOG_ID = "health_logid";
+
 
 
     public static void SetLogin(Context context,boolean login){
@@ -55,6 +57,20 @@ public class HHSharedPrefrence {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.apply();
+    }
+
+    public static void saveHealthLogID(Context context,String id){
+        SharedPreferences prefSignupData = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+        editor = prefSignupData.edit();
+        editor.putString(HEALTHLOG_ID,id);
+        editor.apply();
+        editor.commit();
+    }
+
+    public static String getsaveHealthLogID(Context context){
+        SharedPreferences pref = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return pref.getString(HEALTHLOG_ID,"");
     }
 
 }

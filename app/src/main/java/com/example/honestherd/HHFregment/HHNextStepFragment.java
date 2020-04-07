@@ -68,7 +68,7 @@ public class HHNextStepFragment extends Fragment {
         txt_self_assessment.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_BOLD));
         txt_my_help_center.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_BOLD));
         txt_export_my_trace.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_BOLD));
-        
+
         txt_self_assessment_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));
         txt_my_help_center_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));
         txt_export_my_trace_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));

@@ -1,7 +1,17 @@
 package com.example.honestherd.HHGlobal;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+
+import com.google.firebase.firestore.GeoPoint;
 
 import java.net.URI;
 import java.net.URL;
@@ -10,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 public class Utils {
 
@@ -33,8 +45,18 @@ public class Utils {
     public static final String FIREBASE_USERID = "firebaseUserID";
     public static final String USERPOINTS = "userPoints";
     public static final String USERPOINTSLOGS = "userPointsLogs";
+    public static final String USER_HEALTHLOG = "userHealthLog";
     public static final String AWARDEDFORDATE = "awardedForDate";
     public static final String POINTSCHANGE = "pointsChange";
+    public static final String FORDATE = "forDate";
+    public static final String HEALTHSTATUS = "healthStatus";
+    public static final String TIMESTAMP = "timestamp";
+    public static final String USERS_TIMEZONE = "usersTimezone";
+    public static final String lastLocation = "lastLocation";
+
+    public static final String HYPER_TRACK_DEVICEID = "hyperTrackDeviceID";
+    public static final String PHONENUMBER = "phoneNumber";
+    public static final String TIMEZONE = "timezone";
 
     //Fragment name
     public static final String FRAGMENT_MAP = "map_fragment";
@@ -100,5 +122,34 @@ public class Utils {
             }
             return number;
         }
+
+
+    public static GeoPoint currentlatLong(Context context, LocationManager locationManager) {
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            //return ;
+        }
+        locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+        Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        GeoPoint latLng = null;
+        if (locationGPS != null) {
+
+            latLng = new GeoPoint ( locationGPS.getLatitude() ,  locationGPS.getLongitude() );
+//            latitude = String.valueOf(lat);
+//            longitude = String.valueOf(longi);
+//            Log.e("TAG", "currentlatLong: "+latitude+" --- "+longitude );
+        } else {
+            Toast.makeText(context, "Unable to find location.", Toast.LENGTH_SHORT).show();
+        }
+
+        return latLng;
+    }
 
 }

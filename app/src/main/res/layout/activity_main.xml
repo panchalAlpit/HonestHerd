@@ -109,13 +109,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view" />
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_gravity="right"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@color/dark_color">
@@ -130,7 +128,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2"
+                >
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -246,9 +245,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
+                    android:paddingBottom="25dp"
                     android:paddingTop="25dp"
                     android:paddingRight="15dp"
-                    android:text="@string/assessment_tool"
+                    android:text="@string/view_community_map"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
@@ -261,7 +261,8 @@
                     android:paddingLeft="15dp"
                     android:textSize="10sp"
                     android:text="@string/diagnosis_project"
-                    android:paddingBottom="10dp"/>
+                    android:paddingBottom="10dp"
+                    android:visibility="gone"/>
 
 
             </LinearLayout>
@@ -286,8 +287,9 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:paddingTop="25dp"
+                    android:paddingBottom="25dp"
                     android:paddingRight="15dp"
-                    android:text="@string/export_my_path"
+                    android:text="@string/view_my_14_day"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
@@ -299,6 +301,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
                     android:textSize="10sp"
+                    android:visibility="gone"
                     android:text="@string/xml_export"
                     android:paddingBottom="10dp"/>
 
@@ -325,8 +328,10 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:paddingTop="25dp"
+                    android:paddingBottom="25dp"
                     android:paddingRight="15dp"
-                    android:text="@string/near_test_center"
+                    android:text="@string/dont_feel_well"
+                    android:textColor="@color/white"
                     android:textAllCaps="true"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -337,6 +342,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
                     android:textSize="10sp"
+                    android:visibility="gone"
                     android:text="@string/coming_soon"
                     android:paddingBottom="10dp"/>
 
@@ -347,14 +353,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="20dp"
-                android:background="@color/borderview_color" />
+                android:background="@color/borderview_color"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:background="@color/dark_color"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_datapolicy"
@@ -363,6 +371,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:paddingTop="25dp"
+                    android:paddingBottom="25dp"
                     android:paddingRight="15dp"
                     android:text="@string/data_policy"
                     android:textAllCaps="true"
@@ -376,6 +385,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="15dp"
                     android:textSize="10sp"
+                    android:visibility="gone"
                     android:text="@string/privacy_seriously"
                     android:paddingBottom="10dp"/>
 
@@ -416,6 +426,35 @@
                     android:textSize="10sp"
                     android:text="@string/news_version"
                     android:paddingBottom="10dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/borderview_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@color/dark_color"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/delete_account_new"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -543,7 +582,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:gravity="bottom"
                 android:weightSum="10">
 
@@ -554,26 +595,42 @@
                     android:orientation="vertical"
                     android:background="@drawable/border_rectangle">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txt_my_coins"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="25dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="5dp"
-                        android:text="@string/redeem_coins"
-                        android:drawableRight="@drawable/database"
-                        android:textAllCaps="true"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/unseleted"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_my_coins"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="25dp"
+                            android:paddingRight="15dp"
+                            android:text="@string/redeem_coins"
+                            android:textAllCaps="true"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/unseleted"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            app:srcCompat="@drawable/coin"
+                            android:tint="@color/unseleted"
+                            android:layout_gravity="bottom"/>
+
+                    </LinearLayout>
+
+
+
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txt_sub_my_coins"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/coming_soon"
+                        android:text="@string/more_coins"
                         android:paddingStart="15dp"
                         android:textSize="10sp"
                         android:paddingBottom="15dp"/>
@@ -588,8 +645,8 @@
                     android:layout_gravity="center">
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_gravity="right"
                         android:layout_marginRight="30dp"
                         android:background="@drawable/pink_circle"
@@ -601,8 +658,8 @@
                         android:layout_gravity="right">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:background="@drawable/pink_circle"
                             android:backgroundTint="@color/green" />
 
@@ -624,16 +681,41 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_betheherd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:text="@string/incentive_partner"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/betheherd"
-                android:textSize="30sp"
-                android:textAllCaps="true"
-                android:paddingEnd="15dp"
-                android:layout_marginBottom="45dp"
-                android:textColor="@color/unseleted_1"
-                android:gravity="right"/>
+                android:orientation="horizontal"
+                android:layout_marginBottom="45dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="bottom"
+                    app:textAllCaps="true"
+                    android:textSize="10sp"
+                    android:text="@string/privacy_terms"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_betheherd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/betheherd"
+                    android:textSize="25sp"
+                    android:textAllCaps="true"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/unseleted_1"
+                    android:gravity="right|bottom"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.drawerlayout.widget.DrawerLayout>

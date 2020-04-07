@@ -27,6 +27,7 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 
 import com.example.honestherd.HHActivity.HHLogin_activity;
+import com.example.honestherd.HHActivity.HHTerms_activity;
 import com.example.honestherd.HHFregment.HHFeeling_well_Fragment;
 import com.example.honestherd.HHFregment.HHMap_fregment;
 import com.example.honestherd.HHFregment.HHTripHistory;
@@ -261,14 +262,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 OpenBrowser();
             }
             case R.id.txt_follow_twitter:{
-//                OpenBrowser();
-                FirebaseAuth.getInstance().signOut();
+                OpenBrowser();
+           /*     FirebaseAuth.getInstance().signOut();
                 CloseDrawer();
                 HHSharedPrefrence.SetLogin(MainActivity.this, false);
                 HHSharedPrefrence.ClearSession(MainActivity.this);
-                Intent intent = new Intent(MainActivity.this, HHLogin_activity.class);
+                Intent intent = new Intent(MainActivity.this, HHTerms_activity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//mak
-                startActivity(intent);
+                startActivity(intent);*/
                 break;
             }
             /*case R.id.txt_logout: {
@@ -346,12 +347,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.out.println("TimeZone   "+tz.getDisplayName(false, TimeZone.SHORT)+" Timezon id :: " +tz.getID());
 
         Map<String, Object> user = new HashMap<>();
-        user.put("firebaseUserID", firebaseUser.getUid());
-        user.put("hyperTrackDeviceID", hyperTrack.getDeviceID());
-        user.put("phoneNumber", firebaseUser.getPhoneNumber());
-        user.put("timezone", tz.getID());
+        user.put(Utils.FIREBASE_USERID, firebaseUser.getUid());
+        user.put(Utils.HYPER_TRACK_DEVICEID, hyperTrack.getDeviceID());
+        user.put(Utils.PHONENUMBER, firebaseUser.getPhoneNumber());
+        user.put(Utils.TIMEZONE, tz.getID());
 
-// Add a new document with a generated ID
+     // Add a new document with a generated ID
         firebaseFirestore.collection("userInfo")
                 .add(user)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

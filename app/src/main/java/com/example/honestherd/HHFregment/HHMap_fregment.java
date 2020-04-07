@@ -3,6 +3,7 @@ package com.example.honestherd.HHFregment;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
@@ -26,7 +27,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.honestherd.HHGlobal.HHSharedPrefrence;
 import com.example.honestherd.HHGlobal.Utils;
+import com.example.honestherd.HHModel.HHUserGeopoint;
 import com.example.honestherd.HHWebService.GPSTracker;
 import com.example.honestherd.MainActivity;
 import com.example.honestherd.R;
@@ -39,6 +42,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.location.LocationListener;
@@ -46,13 +50,21 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hypertrack.sdk.HyperTrack;
 import com.hypertrack.sdk.TrackingError;
 import com.hypertrack.sdk.TrackingStateObserver;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -89,6 +101,10 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
     LinearLayout linear_menu_history;
      Map<String, Object> order;
     private AppCompatTextView txt_place,txt_walk,txt_vehicle;
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseUser firebaseUser;
+    ArrayList<HHUserGeopoint> geopointArrayList = new ArrayList<>();
+    LocationManager locationManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,7 +120,8 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hhmap_fregment, container, false);
 
-
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(100000);
         mLocationRequest.setFastestInterval(100000);
@@ -139,8 +156,10 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         });
         linear_menu_history.setOnClickListener(this);
         fetchLocation();
+        FetchAllUserLatLong();
         return view;
     }
+
 
     void  init(View view){
         linear_menu_history = view.findViewById(R.id.linear_menu_history);
@@ -157,13 +176,51 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         txt_vehicle.setOnClickListener(this);
     }
 
+    private void FetchAllUserLatLong() {
+//        https://stackoverflow.com/questions/50673639/firestore-possible-geoquery-workaround
+        // ~1 mile of lat and lon in degrees
+        GeoPoint geoPoint = Utils.currentlatLong(getActivity(),locationManager);
+        double lat = 0.0144927536231884;
+        double lon = 0.0181818181818182;
+
+        double lowerLat = geoPoint.getLatitude() - (lat * 15);
+        double lowerLon = geoPoint.getLongitude() - (lon * 15);
+        GeoPoint lesserGeopoint = new GeoPoint(lowerLat, lowerLon);
+
+        firebaseFirestore.collection(Utils.USER_HEALTHLOG).whereGreaterThan(Utils.lastLocation,lesserGeopoint).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (task.getResult().size() != 0) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Log.d("TAGIDsa", document.getId());
+                            HHUserGeopoint hhUserGeopoint = new HHUserGeopoint();
+                            hhUserGeopoint.setGeoPoint(document.getGeoPoint(Utils.lastLocation));
+
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.title(document.getId());
+
+                            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.green_circle));
+                            markerOptions.position(new LatLng(document.getGeoPoint(Utils.lastLocation).getLatitude(),document.getGeoPoint(Utils.lastLocation).getLongitude()));
+                            hhUserGeopoint.setMarkerOptions(markerOptions);
+                            geopointArrayList.add(hhUserGeopoint);
+                        }
+                        for (int i = 0;i<geopointArrayList.size();i++){
+                            mMap.addMarker(geopointArrayList.get(i).getMarkerOptions());
+                        }
+
+                    } else {
+                        Log.e("TAG", "onFailed: ");
+                    }
+                } else {
+                    Log.d("TAG", "Error getting documents: ");
+                }
+            }
+        });
+    }
+
     private void fetchLocation() {
-      /*  if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-            return;
-        }
-*/
+
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
@@ -183,10 +240,11 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new));
+        MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location");//icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new)
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         marker = googleMap.addMarker(markerOptions);
+
 
     }
 
@@ -255,7 +313,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
                 currentLocation = location;
                 getAddressFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
                 LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new));
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location");//.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new))
 
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
@@ -294,10 +352,6 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
             addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
             String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
             String city = addresses.get(0).getLocality();
-            String state = addresses.get(0).getAdminArea();
-            String country = addresses.get(0).getCountryName();
-            String postalCode = addresses.get(0).getPostalCode();
-            String knownName = addresses.get(0).getFeatureName();
             Log.e("TAG", "getAddressFromLocation: "+latitude+" -- "+longitude );
             Log.e("TAG", "getAddressFromLocation: "+address+addresses.get(0).getSubAdminArea()+""+city );
             new_address  = address;
