@@ -38,7 +38,8 @@ public class HHHistory_adpater extends RecyclerView.Adapter<HHHistory_adpater.Vi
     public void onBindViewHolder(@NonNull HHHistory_adpater.ViewHoldar holder, int position) {
 
         holder.setIsRecyclable(false);
-        if (arrayList_historyModel.get(position).getType().equals(Utils.DEVICE_STATUS)){
+//        if (arrayList_historyModel.get(position).getType().equals(Utils.DEVICE_STATUS))
+        {
           //  holder.txt_address.setTextColor(context.getResources().getColor(R.color.green));
         }
         holder.txt_address.setText(arrayList_historyModel.get(position).getAddress());
@@ -61,7 +62,7 @@ public class HHHistory_adpater extends RecyclerView.Adapter<HHHistory_adpater.Vi
             txt_time = itemView.findViewById(R.id.txt_time);
             txt_date.setTypeface(Typeface.createFromAsset(context.getAssets(), Utils.DIN_BOLD));
             txt_time.setTypeface(Typeface.createFromAsset(context.getAssets(), Utils.DIN_BOLD));
-            txt_address.setTypeface(Typeface.createFromAsset(context.getAssets(), Utils.DIN_BOLD));
+            txt_address.setTypeface(Typeface.createFromAsset(context.getAssets(), Utils.DIN_MEDIUM));
         }
     }
 }

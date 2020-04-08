@@ -34,6 +34,7 @@ import com.example.honestherd.HHFregment.HHTripHistory;
 import com.example.honestherd.HHGlobal.HHSharedPrefrence;
 import com.example.honestherd.HHGlobal.Utils;
 import com.example.honestherd.HHWebService.HHApiCall;
+import com.example.honestherd.HHWebService.HHDeleteApi;
 import com.example.honestherd.HHWebService.OnUpdateListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static HyperTrack hyperTrack;
     LinearLayout linear_menu_history;
     private AppCompatTextView txt_viewmap, txt_datapolicy, txt_my_coins,txt_share_world,txt_assessment_tool,txt_export_my_path,txt_near_test_center,txt_follow_twitter;
-    AppCompatTextView txt_clipboard,txt_diagnosis_project,txt_xml_export,txt_sub_near_test_center,txt_privacy_seriously,txt_news_version,txt_sub_my_coins,txt_betheherd,txt_total_coins;
+    AppCompatTextView txt_clipboard,txt_diagnosis_project,txt_xml_export,txt_sub_near_test_center,txt_privacy_seriously,txt_news_version,txt_sub_my_coins,txt_betheherd,txt_total_coins,txt_delete_account;
 //    AppCompatTextView txt_delete_account,txt_emergency_info,txt_logout;
     public static AppCompatTextView txt_date_map_fregment;
     public static AppCompatTextView txt_month_map_fregment;
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_sub_my_coins = findViewById(R.id.txt_sub_my_coins);
         txt_betheherd= findViewById(R.id.txt_betheherd);
         txt_total_coins = findViewById(R.id.txt_total_coins);
-
+        txt_delete_account = findViewById(R.id.txt_delete_account);
         txt_my_coins = findViewById(R.id.txt_my_coins);
 //        txt_delete_account = findViewById(R.id.txt_delete_account);
         txt_datapolicy = findViewById(R.id.txt_datapolicy);
@@ -157,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_export_my_path.setOnClickListener(this);
         txt_near_test_center.setOnClickListener(this);
         txt_follow_twitter.setOnClickListener(this);
+        txt_delete_account.setOnClickListener(this);
 
 
 //        txt_logout.setOnClickListener(this);
@@ -226,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -263,13 +266,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.txt_follow_twitter:{
                 OpenBrowser();
-           /*     FirebaseAuth.getInstance().signOut();
+              /*  FirebaseAuth.getInstance().signOut();
                 CloseDrawer();
                 HHSharedPrefrence.SetLogin(MainActivity.this, false);
                 HHSharedPrefrence.ClearSession(MainActivity.this);
                 Intent intent = new Intent(MainActivity.this, HHTerms_activity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//mak
                 startActivity(intent);*/
+                break;
+            }
+            case R.id.txt_delete_account:{
+                DeleteAccount_data();
                 break;
             }
             /*case R.id.txt_logout: {
@@ -373,17 +380,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @RequiresApi(api = Build.VERSION_CODES.O)
     void DeleteAccount_data() {
 
-        new HHApiCall(MainActivity.this, Utils.HyperTrack_URL + hyperTrack.getDeviceID(), new OnUpdateListener() {
+        new HHDeleteApi(MainActivity.this, Utils.HyperTrack_URL + hyperTrack.getDeviceID(), new OnUpdateListener() {
             @Override
             public void onUpdateComplete(JSONObject jsonObject, boolean isSuccess) {
+                Log.e("TAG", "onResponse: 8" + isSuccess );
                 if (!isSuccess) {
+                    CloseDrawer();
+                    FirebaseAuth.getInstance().signOut();
+                    CloseDrawer();
+                    HHSharedPrefrence.SetLogin(MainActivity.this, false);
+                    HHSharedPrefrence.ClearSession(MainActivity.this);
+                    Intent intent = new Intent(MainActivity.this, HHTerms_activity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//mak
+                    startActivity(intent);
 
+                }else {
+                    Log.e("TAG", "onResponse: 9" );
                 }
             }
         }).execute();
     }
 
 }
-
-
 //https://demonuts.com/android-google-map-in-fragment/

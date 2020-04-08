@@ -40,10 +40,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.type.LatLng;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
 import static android.content.Context.LOCATION_SERVICE;
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 
 public class HHFeeling_well_Fragment extends Fragment implements View.OnClickListener {
@@ -53,9 +55,8 @@ public class HHFeeling_well_Fragment extends Fragment implements View.OnClickLis
     private FirebaseFirestore firebaseFirestore;
     private FirebaseUser firebaseUser;
 
-    LocationManager locationManager;
-    String latitude, longitude;
     GeoPoint latLng;
+    LocationManager mLocationManager;
 
     public HHFeeling_well_Fragment() {
         // Required empty public constructor
@@ -117,7 +118,7 @@ public class HHFeeling_well_Fragment extends Fragment implements View.OnClickLis
                 } else {
                     updateHealthLog("FEELINGWELL");
                 }
-               addFragment();
+                addFragment();
                 break;
             }
             case R.id.linear_feel_sick: {
@@ -143,7 +144,8 @@ public class HHFeeling_well_Fragment extends Fragment implements View.OnClickLis
         user.put(Utils.HEALTHSTATUS, status);
         user.put(Utils.TIMESTAMP, FieldValue.serverTimestamp());
         user.put(Utils.USERS_TIMEZONE, tz.getID());
-        user.put(Utils.lastLocation, currentlatLong());
+        user.put(Utils.lastLocation, getLastKnownLocation());
+        HHSharedPrefrence.setHealthStatus(getContext(),status);
 
         // Add a new document with a generated ID
         firebaseFirestore.collection(Utils.USER_HEALTHLOG)
@@ -152,7 +154,6 @@ public class HHFeeling_well_Fragment extends Fragment implements View.OnClickLis
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
 
-                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -169,7 +170,8 @@ public class HHFeeling_well_Fragment extends Fragment implements View.OnClickLis
         user.put(Utils.FORDATE, Utils.getDateFromate("yyyy-MM-dd"));
         user.put(Utils.HEALTHSTATUS, status);
         user.put(Utils.TIMESTAMP, FieldValue.serverTimestamp());
-        user.put(Utils.lastLocation, currentlatLong());
+        user.put(Utils.lastLocation, getLastKnownLocation());
+        HHSharedPrefrence.setHealthStatus(getContext(),status);
 
         firebaseFirestore.collection(Utils.USER_HEALTHLOG).document(HHSharedPrefrence.getsaveHealthLogID(getContext())).update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -201,32 +203,31 @@ public class HHFeeling_well_Fragment extends Fragment implements View.OnClickLis
         transaction.commit();
     }
 
-    public GeoPoint currentlatLong() {
+    private GeoPoint getLastKnownLocation() {
+        mLocationManager = (LocationManager) getContext().getApplicationContext().getSystemService(LOCATION_SERVICE);
+        List<String> providers = mLocationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
 
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            //return ;
+            }
+            Location l = mLocationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                // Found best last known location: %s", l);
+                bestLocation = l;
+                latLng = new GeoPoint(l.getLatitude(), l.getLongitude());
+            }
         }
-        locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
-        Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-        if (locationGPS != null) {
-            double lat = locationGPS.getLatitude();
-            double longi = locationGPS.getLongitude();
-            latLng = new GeoPoint ( locationGPS.getLatitude() ,  locationGPS.getLongitude() );
-            latitude = String.valueOf(lat);
-            longitude = String.valueOf(longi);
-            Log.e("TAG", "currentlatLong: "+latitude+" --- "+longitude );
-        } else {
-            Toast.makeText(getContext(), "Unable to find location.", Toast.LENGTH_SHORT).show();
-        }
-
         return latLng;
     }
 }

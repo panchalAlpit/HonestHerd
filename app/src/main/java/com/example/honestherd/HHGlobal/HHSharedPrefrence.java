@@ -9,6 +9,7 @@ public class HHSharedPrefrence {
     private static final String JOINDATE = "joindate";
     private static final String ADD_DATA = "add_data";
     private static final String HEALTHLOG_ID = "health_logid";
+    private static final String HEALTH_STATUS = "health_status";
 
 
 
@@ -71,6 +72,20 @@ public class HHSharedPrefrence {
     public static String getsaveHealthLogID(Context context){
         SharedPreferences pref = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return pref.getString(HEALTHLOG_ID,"");
+    }
+
+    public static void setHealthStatus(Context context,String status){
+        SharedPreferences prefSignupData = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+        editor = prefSignupData.edit();
+        editor.putString(HEALTH_STATUS,status);
+        editor.apply();
+        editor.commit();
+    }
+
+    public static String getsetHealthStatus(Context context){
+        SharedPreferences pref = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return pref.getString(HEALTH_STATUS,"");
     }
 
 }

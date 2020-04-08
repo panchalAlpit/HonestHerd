@@ -60,6 +60,10 @@
     <string name="incentive_partner">Become incentive partner</string>
     <string name="privacy_terms">Privacy policy \u00A0 Terms of use</string>
     <!--    <string name="term_policy">"Test</string>-->
-    <string name="term_policy">Honest Herd takes privacy seriously and aims to use your information (personal and location data) only when deemed absolutely necessary.The information, including but not limited to text, graphics, images, and other material on Honest Herd is neither intended to be nor should be understood as medical opinion, advice or diagnosis of any condition. Honest Herd simply provides an easy way to track your movement and interaction so as to gauge any possible contact with COVID-19, and related symptoms.
-By proceeding further, you agree to our [ Privacy Policy and Terms of Service] - underline in the bracket that will be linked to our website\'s tos. \nWhere do we store data? \nHow we use this data? \n Who owns this data? </string>
+    <string name="term_policy">• On Honest Herd you are an anonymous user. We do not collect any personal information.\n\n
+• If you are well or unwell we do not share your share individual data with anyone.\n\n
+• We may provide scientific and medical communities with anonymised community data for research.\n\n
+• Any information is neither intended to be nor should be understood as medical opinion, advice or diagnosis of any condition.</string>
+
+
 </resources>

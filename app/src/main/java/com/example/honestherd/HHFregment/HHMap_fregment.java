@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -183,40 +185,60 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         double lat = 0.0144927536231884;
         double lon = 0.0181818181818182;
 
-        double lowerLat = geoPoint.getLatitude() - (lat * 15);
-        double lowerLon = geoPoint.getLongitude() - (lon * 15);
-        GeoPoint lesserGeopoint = new GeoPoint(lowerLat, lowerLon);
+        if (geoPoint !=null){
+            double lowerLat = geoPoint.getLatitude() - (lat * 15);
+            double lowerLon = geoPoint.getLongitude() - (lon * 15);
+            GeoPoint lesserGeopoint = new GeoPoint(lowerLat, lowerLon);
 
-        firebaseFirestore.collection(Utils.USER_HEALTHLOG).whereGreaterThan(Utils.lastLocation,lesserGeopoint).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    if (task.getResult().size() != 0) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.d("TAGIDsa", document.getId());
-                            HHUserGeopoint hhUserGeopoint = new HHUserGeopoint();
-                            hhUserGeopoint.setGeoPoint(document.getGeoPoint(Utils.lastLocation));
+            firebaseFirestore.collection(Utils.USER_HEALTHLOG).whereGreaterThan(Utils.lastLocation,lesserGeopoint).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().size() != 0) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAGIDsa", document.getId());
+                                HHUserGeopoint hhUserGeopoint = new HHUserGeopoint();
+                                hhUserGeopoint.setGeoPoint(document.getGeoPoint(Utils.lastLocation));
 
-                            MarkerOptions markerOptions = new MarkerOptions();
-                            markerOptions.title(document.getId());
+                                MarkerOptions markerOptions = new MarkerOptions();
+                                markerOptions.title(document.getId());
+                                if (document.get(Utils.HEALTHSTATUS).equals("FEELINGWELL")){
+                                    markerOptions.icon(getBitmapDescriptor(getActivity().getResources().getDrawable(R.drawable.green_circle)));
+                                }else {
+                                    markerOptions.icon(getBitmapDescriptor(getActivity().getResources().getDrawable(R.drawable.orange_circle)));
+                                }
 
-                            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.green_circle));
-                            markerOptions.position(new LatLng(document.getGeoPoint(Utils.lastLocation).getLatitude(),document.getGeoPoint(Utils.lastLocation).getLongitude()));
-                            hhUserGeopoint.setMarkerOptions(markerOptions);
-                            geopointArrayList.add(hhUserGeopoint);
+                                markerOptions.position(new LatLng(document.getGeoPoint(Utils.lastLocation).getLatitude(),document.getGeoPoint(Utils.lastLocation).getLongitude()));
+                                hhUserGeopoint.setMarkerOptions(markerOptions);
+                                if (!firebaseUser.getUid().equals(document.get(Utils.FIREBASE_USERID))){
+                                    geopointArrayList.add(hhUserGeopoint);
+                                }
+
+                            }
+                            for (int i = 0;i<geopointArrayList.size();i++){
+                                mMap.addMarker(geopointArrayList.get(i).getMarkerOptions());
+                            }
+
+                        } else {
+                            Log.e("TAG", "onFailed: ");
                         }
-                        for (int i = 0;i<geopointArrayList.size();i++){
-                            mMap.addMarker(geopointArrayList.get(i).getMarkerOptions());
-                        }
-
                     } else {
-                        Log.e("TAG", "onFailed: ");
+                        Log.d("TAG", "Error getting documents: ");
                     }
-                } else {
-                    Log.d("TAG", "Error getting documents: ");
                 }
-            }
-        });
+            });
+        }
+
+    }
+
+    private BitmapDescriptor getBitmapDescriptor(Drawable drawable) {
+        Drawable vectorDrawable = drawable;
+
+        vectorDrawable.setBounds(0, 0, 24, 24);
+        Bitmap bm = Bitmap.createBitmap(24, 24, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bm);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bm);
     }
 
     private void fetchLocation() {
@@ -321,9 +343,8 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
 
                 order = new HashMap<>();
                 order.put("address", getAddressFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude()));
+                order.put(Utils.HEALTHSTATUS,HHSharedPrefrence.getsetHealthStatus(getActivity()));
                 onTrackingStart();
-
-
             }
         }
     }
@@ -370,21 +391,21 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
                 break;
             }
             case R.id.txt_vehicle:{
-                setDefualtPropertise();
-                txt_vehicle.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.green_line),null,null,null);
-                txt_vehicle.setTextColor(getContext().getResources().getColor(R.color.white));
+//                setDefualtPropertise();
+//                txt_vehicle.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.green_line),null,null,null);
+//                txt_vehicle.setTextColor(getContext().getResources().getColor(R.color.white));
                 break;
             }
             case R.id.txt_walk:{
-                setDefualtPropertise();
-                txt_walk.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.pink_line),null,null,null);
-                txt_walk.setTextColor(getContext().getResources().getColor(R.color.white));
+//                setDefualtPropertise();
+//                txt_walk.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.pink_line),null,null,null);
+//                txt_walk.setTextColor(getContext().getResources().getColor(R.color.white));
                 break;
             }
             case R.id.txt_place:{
-                setDefualtPropertise();
-                txt_place.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.yellow_line),null,null,null);
-                txt_place.setTextColor(getContext().getResources().getColor(R.color.white));
+//                setDefualtPropertise();
+//                txt_place.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.drawable.yellow_line),null,null,null);
+//                txt_place.setTextColor(getContext().getResources().getColor(R.color.white));
                 break;
             }
         }

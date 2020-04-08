@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,7 @@ import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.example.honestherd.HHAdpater.HHDateSelectionAdpater;
 import com.example.honestherd.HHAdpater.HHHistory_adpater;
@@ -79,12 +81,13 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
      */
     // TODO: Rename and change types and number of parameters
 
+    private LinearLayout linear_close_history;
     private FrameLayout frame_triphistory;
     private RecyclerView recycle_custom_date;
     private RecyclerView recycle_history;
     private HHHistory_adpater history_adpater;
     private AppCompatTextView txt_empty;
-    private AppCompatButton btn_previous,btn_next;
+    private AppCompatImageView btn_previous,btn_next;
     int date_index = 0,total_days = 0;
     private int mYear, mMonth, mDay;
     Calendar calendar = Calendar.getInstance();
@@ -122,6 +125,7 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
         recycle_history = view.findViewById(R.id.recycle_history);
         frame_triphistory = view.findViewById(R.id.frame_triphistory);
         recycle_custom_date = view.findViewById(R.id.recycle_custom_date);
+        linear_close_history = view.findViewById(R.id.linear_close_history);
 
         txt_empty = view.findViewById(R.id.txt_empty);
         btn_previous = view.findViewById(R.id.btn_previous);
@@ -132,6 +136,7 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
 
         btn_previous.setOnClickListener(this);
         btn_next.setOnClickListener(this);
+        linear_close_history.setOnClickListener(this);
 
         ((MainActivity)getContext()).txt_date_map_fregment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -300,9 +305,7 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
                                 history_model.setAddress(object.getJSONObject(Utils.DATA).getString(Utils.ADDRESS));
                                 arrayList_historyModel.add(history_model);
                             }
-
                         }
-
                     }
 
                     history_adpater = new HHHistory_adpater(getActivity(),arrayList_historyModel);
@@ -310,6 +313,7 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
                     recycle_history.setLayoutManager(layoutManager);
                     recycle_history.setAdapter(history_adpater);
                     history_adpater.notifyDataSetChanged();
+
                     if (history_adpater.getItemCount() ==0){
                         txt_empty.setVisibility(View.VISIBLE);
                         recycle_history.setVisibility(View.GONE);
@@ -350,6 +354,10 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
                     }
                     ChangedDate(date_index);
                 }
+                break;
+            }
+            case R.id.linear_close_history:{
+                ((MainActivity)getContext()).onBackPressed();
                 break;
             }
         }

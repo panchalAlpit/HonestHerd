@@ -18,6 +18,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -124,31 +125,33 @@ public class Utils {
         }
 
 
-    public static GeoPoint currentlatLong(Context context, LocationManager locationManager) {
+    public static GeoPoint currentlatLong(Context context, LocationManager mLocationManager) {
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            //return ;
-        }
-        locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
-        Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        mLocationManager = (LocationManager) context.getApplicationContext().getSystemService(LOCATION_SERVICE);
+        List<String> providers = mLocationManager.getProviders(true);
+        Location bestLocation = null;
         GeoPoint latLng = null;
-        if (locationGPS != null) {
+        for (String provider : providers) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
 
-            latLng = new GeoPoint ( locationGPS.getLatitude() ,  locationGPS.getLongitude() );
-//            latitude = String.valueOf(lat);
-//            longitude = String.valueOf(longi);
-//            Log.e("TAG", "currentlatLong: "+latitude+" --- "+longitude );
-        } else {
-            Toast.makeText(context, "Unable to find location.", Toast.LENGTH_SHORT).show();
+            }
+            Location l = mLocationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                // Found best last known location: %s", l);
+                bestLocation = l;
+                latLng = new GeoPoint(l.getLatitude(), l.getLongitude());
+            }
         }
-
         return latLng;
     }
 
