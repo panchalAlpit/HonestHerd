@@ -287,11 +287,9 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:paddingTop="25dp"
-                    android:paddingBottom="25dp"
                     android:paddingRight="15dp"
                     android:text="@string/view_my_14_day"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -299,10 +297,10 @@
                     android:id="@+id/txt_xml_export"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
+                    android:paddingStart="15dp"
                     android:textSize="10sp"
-                    android:visibility="gone"
-                    android:text="@string/xml_export"
+                    android:visibility="visible"
+                    android:text="@string/coming_soon"
                     android:paddingBottom="10dp"/>
 
 
@@ -322,7 +320,7 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_near_test_center"
+                    android:id="@+id/txt_dont_feel_well"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -682,6 +680,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_incentive_partner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"

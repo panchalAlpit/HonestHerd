@@ -17,6 +17,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -30,6 +31,7 @@ import com.example.honestherd.HHActivity.HHLogin_activity;
 import com.example.honestherd.HHActivity.HHTerms_activity;
 import com.example.honestherd.HHFregment.HHFeeling_well_Fragment;
 import com.example.honestherd.HHFregment.HHMap_fregment;
+import com.example.honestherd.HHFregment.HHNextStepFragment;
 import com.example.honestherd.HHFregment.HHTripHistory;
 import com.example.honestherd.HHGlobal.HHSharedPrefrence;
 import com.example.honestherd.HHGlobal.Utils;
@@ -72,8 +74,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static LinearLayout linear_dateselect;
     public static HyperTrack hyperTrack;
     LinearLayout linear_menu_history;
-    private AppCompatTextView txt_viewmap, txt_datapolicy, txt_my_coins,txt_share_world,txt_assessment_tool,txt_export_my_path,txt_near_test_center,txt_follow_twitter;
-    AppCompatTextView txt_clipboard,txt_diagnosis_project,txt_xml_export,txt_sub_near_test_center,txt_privacy_seriously,txt_news_version,txt_sub_my_coins,txt_betheherd,txt_total_coins,txt_delete_account;
+    private AppCompatTextView txt_viewmap, txt_datapolicy, txt_my_coins,txt_share_world,txt_assessment_tool,txt_export_my_path,txt_dont_feel_well,txt_follow_twitter;
+    AppCompatTextView txt_clipboard,txt_diagnosis_project,txt_xml_export,txt_sub_near_test_center,txt_privacy_seriously,txt_news_version,txt_sub_my_coins,txt_betheherd,txt_total_coins,txt_delete_account
+            ,txt_incentive_partner;
 //    AppCompatTextView txt_delete_account,txt_emergency_info,txt_logout;
     public static AppCompatTextView txt_date_map_fregment;
     public static AppCompatTextView txt_month_map_fregment;
@@ -121,11 +124,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initMathod() {
 //        addFragment();
-        addFragementFeeling_well();
+
         txt_share_world  =findViewById(R.id.txt_share_world);
         txt_assessment_tool = findViewById(R.id.txt_assessment_tool);
         txt_export_my_path = findViewById(R.id.txt_export_my_path);
-        txt_near_test_center = findViewById(R.id.txt_near_test_center);
+        txt_dont_feel_well = findViewById(R.id.txt_dont_feel_well);
         txt_follow_twitter = findViewById(R.id.txt_follow_twitter);
         txt_clipboard = findViewById(R.id.txt_clipboard);
         txt_diagnosis_project = findViewById(R.id.txt_diagnosis_project);
@@ -147,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_cancel_drawer = findViewById(R.id.txt_cancel_drawer);
         drawer = findViewById(R.id.drawer);
         linear_dateselect = findViewById(R.id.linear_dateselect);
+        txt_incentive_partner = findViewById(R.id.txt_incentive_partner);
         linear_dateselect.setOnClickListener(this);
         txt_date_map_fregment = findViewById(R.id.txt_date_map_fregment);
         txt_month_map_fregment = findViewById(R.id.txt_month_map_fregment);
@@ -156,9 +160,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_share_world.setOnClickListener(this);
         txt_assessment_tool.setOnClickListener(this);
         txt_export_my_path.setOnClickListener(this);
-        txt_near_test_center.setOnClickListener(this);
+        txt_dont_feel_well.setOnClickListener(this);
         txt_follow_twitter.setOnClickListener(this);
         txt_delete_account.setOnClickListener(this);
+        txt_incentive_partner.setOnClickListener(this);
 
 
 //        txt_logout.setOnClickListener(this);
@@ -169,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_share_world.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_assessment_tool.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_export_my_path.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-        txt_near_test_center.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+        txt_dont_feel_well.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_follow_twitter.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_betheherd.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_clipboard.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
@@ -188,6 +193,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_datapolicy.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_date_map_fregment.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_month_map_fregment.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+
+        addFragementFeeling_well();
         setCurrentDate();
     }
 
@@ -196,7 +203,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_month_map_fregment.setText(Utils.getDateFromate("MMM yyyy"));
     }
 
+
+    public void AddNextStepFragment() {
+        Fragment f = new HHNextStepFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        String backStateName = f.getClass().getName();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame_layout, f, Utils.FRAGMENT_NextStep);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
     public void addHistoryFragment() {
+        linear_dateselect.setVisibility(View.VISIBLE);
         Fragment f = new HHTripHistory();
         FragmentManager manager = getSupportFragmentManager();
         String backStateName = f.getClass().getName();
@@ -208,6 +227,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void addFragment() {
         //first time call this method
+
+        linear_dateselect.setVisibility(View.INVISIBLE);
         Fragment f = new HHMap_fregment();
         FragmentManager manager = getSupportFragmentManager();
         String backStateName = f.getClass().getName();
@@ -218,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void addFragementFeeling_well() {
+        linear_dateselect.setVisibility(View.INVISIBLE);
         Fragment f = new HHFeeling_well_Fragment();
         FragmentManager manager = getSupportFragmentManager();
         String backStateName = f.getClass().getName();
@@ -254,18 +276,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.txt_assessment_tool:{
-                OpenBrowser();
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+                Log.e("TAG", "onClick: " + f.getTag());
+                if (!f.getTag().equals(Utils.FRAGMENT_MAP)) {
+                    addFragment();
+                }
+                CloseDrawer();
+//                OpenBrowser();
                 break;
             }
-            case R.id.txt_near_test_center:{
-                OpenBrowser();
+            case R.id.txt_dont_feel_well:{
+//                OpenBrowser();
+                addFragementFeeling_well();
+                CloseDrawer();
                 break;
             }
             case R.id.txt_datapolicy:{
                 OpenBrowser();
             }
             case R.id.txt_follow_twitter:{
-                OpenBrowser();
+                OpenTwitter();
               /*  FirebaseAuth.getInstance().signOut();
                 CloseDrawer();
                 HHSharedPrefrence.SetLogin(MainActivity.this, false);
@@ -277,6 +307,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.txt_delete_account:{
                 DeleteAccount_data();
+                break;
+            }
+
+            case R.id.txt_incentive_partner:{
+                OpenBrowser();
                 break;
             }
             /*case R.id.txt_logout: {
@@ -331,6 +366,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         CloseDrawer();
     }
 
+    void OpenTwitter(){
+        Intent intent = null;
+        try {
+            // get the Twitter app if possible
+            this.getPackageManager().getPackageInfo("com.twitter.android", 0);
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=HonestHerd"));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        } catch (Exception e) {
+            // no Twitter app, revert to browser
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com"));
+        }
+        this.startActivity(intent);
+        CloseDrawer();
+    }
+
     void CloseDrawer() {
         drawer.closeDrawers();
     }
@@ -342,9 +392,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             super.onBackPressed();
             if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHFeeling_well_Fragment) {
-                setCurrentDate();
+                linear_dateselect.setVisibility(View.INVISIBLE);
+//                setCurrentDate();
+            }else if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHTripHistory){
+                linear_dateselect.setVisibility(View.VISIBLE);
+            }else {
+                linear_dateselect.setVisibility(View.INVISIBLE);
             }
-
         }
     }
 

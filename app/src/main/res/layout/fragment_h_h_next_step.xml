@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -8,6 +13,7 @@
         tools:context=".HHFregment.HHNextStepFragment">
 
         <!-- TODO: Update blank fragment layout -->
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_how_youfeel"
             android:layout_width="match_parent"
@@ -142,3 +148,19 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_cancle_nextstep"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="right"
+        android:gravity="center"
+        android:layout_margin="15dp"
+        android:background="@drawable/pink_circle">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/cancle"
+            android:tint="@color/white"/>
+    </LinearLayout>
+</FrameLayout>

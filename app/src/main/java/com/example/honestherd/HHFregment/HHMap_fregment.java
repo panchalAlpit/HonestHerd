@@ -173,6 +173,8 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         txt_walk.setTypeface(Typeface.createFromAsset(getContext().getResources().getAssets(), Utils.DIN_BOLD));
         txt_place.setTypeface(Typeface.createFromAsset(getContext().getResources().getAssets(), Utils.DIN_BOLD));
 
+
+
         txt_walk.setOnClickListener(this);
         txt_place.setOnClickListener(this);
         txt_vehicle.setOnClickListener(this);
@@ -201,7 +203,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
                                 hhUserGeopoint.setGeoPoint(document.getGeoPoint(Utils.lastLocation));
 
                                 MarkerOptions markerOptions = new MarkerOptions();
-                                markerOptions.title(document.getId());
+                              //  markerOptions.title(document.getId());
                                 if (document.get(Utils.HEALTHSTATUS).equals("FEELINGWELL")){
                                     markerOptions.icon(getBitmapDescriptor(getActivity().getResources().getDrawable(R.drawable.green_circle)));
                                 }else {
@@ -262,12 +264,10 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location");//icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new)
+        MarkerOptions markerOptions = new MarkerOptions().position(latLng);//icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new)
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         marker = googleMap.addMarker(markerOptions);
-
-
     }
 
     @Override
@@ -335,7 +335,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
                 currentLocation = location;
                 getAddressFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
                 LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location");//.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new))
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng);//.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new))
 
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));

@@ -118,6 +118,10 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
         CustomCalendar();
         total_days = Utils.NumberOFDays(HHSharedPrefrence.getJoindate(getActivity()),Utils.getDateFromate("yyyy-MM-dd"));
         Log.e("Number", "onCreateView: "+Utils.NumberOFDays("2020-03-25",Utils.getDateFromate("yyyy-MM-dd")) );
+        Log.e("TAG", "onClick:OnCreate btn_previous"+date_index+" ---- "+total_days );
+        if (total_days == date_index){
+            btn_previous.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -339,7 +343,14 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
                 if (date_index<total_days){
                     date_index++;
                     btn_next.setVisibility(View.VISIBLE);
+                    Log.e("TAG", "onClick:IF btn_previous"+date_index+" ---- "+total_days );
                     ChangedDate(date_index);
+                    if (date_index == total_days){
+                        btn_previous.setVisibility(View.GONE);
+                    }
+
+                }else {
+                    Log.e("TAG", "onClick:else btn_previous"+date_index+" ---- "+total_days );
                 }
 
                 break;
@@ -348,11 +359,14 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
 
                 if ( date_index>0){
                     date_index--;
+                    btn_previous.setVisibility(View.VISIBLE);
                     if (date_index == 0)
                     {
                         btn_next.setVisibility(View.GONE);
                     }
                     ChangedDate(date_index);
+                }else {
+                    Log.e("TAG", "onClick:else btn_next" );
                 }
                 break;
             }

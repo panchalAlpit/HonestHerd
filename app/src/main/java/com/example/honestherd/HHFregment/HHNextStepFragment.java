@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.honestherd.HHGlobal.Utils;
+import com.example.honestherd.MainActivity;
 import com.example.honestherd.R;
 
 /**
@@ -18,9 +20,10 @@ import com.example.honestherd.R;
  * Use the {@link HHNextStepFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HHNextStepFragment extends Fragment {
+public class HHNextStepFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     private AppCompatTextView txt_self_assessment,txt_self_assessment_subtitle,txt_my_help_center,txt_my_help_center_subtitle,txt_export_my_trace,txt_export_my_trace_subtitle;
+    private LinearLayout linear_cancle_nextstep;
     public HHNextStepFragment() {
         // Required empty public constructor
     }
@@ -57,6 +60,9 @@ public class HHNextStepFragment extends Fragment {
     }
 
     private void init(View view) {
+
+        linear_cancle_nextstep = view.findViewById(R.id.linear_cancle_nextstep);
+
         txt_self_assessment = view.findViewById(R.id.txt_self_assessment);
         txt_my_help_center = view.findViewById(R.id.txt_my_help_center);
         txt_export_my_trace = view.findViewById(R.id.txt_export_my_trace);
@@ -73,5 +79,17 @@ public class HHNextStepFragment extends Fragment {
         txt_my_help_center_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));
         txt_export_my_trace_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));
 
+        linear_cancle_nextstep.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.linear_cancle_nextstep:{
+                ((MainActivity)getActivity()).onBackPressed();
+                break;
+            }
+        }
     }
 }
