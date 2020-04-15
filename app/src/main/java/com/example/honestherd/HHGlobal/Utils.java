@@ -27,6 +27,7 @@ import static android.content.Context.LOCATION_SERVICE;
 public class Utils {
 
     public static final Uri WEBURL = Uri.parse("https://honestherd.com/");
+    public static final Uri PRIVACY_POLICY = Uri.parse("https://honestherd.com/privacy-policy.php");
     public static final String publishKey = "7pXsJ2QfvGFLjzyJG-dNUm99YT9iiqd0UsXNV6qHb9wPr0ebWQDlYmjEYMPn8KNjC8x-DA-19Yjg2urO8w9DPw";
     public static final String Account_id = "X43jMR2erQh3C460rGVWrCLi2Tw";
     public static final String SecretKey = "eWiCn0_PQ5vPI8UTIk0vbOTOGONAwEIQaJ16qq6xz4diT2OerZk3jg";

@@ -1,6 +1,8 @@
 package com.example.honestherd.HHFregment;
 
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatTextView;
@@ -23,7 +25,7 @@ import com.example.honestherd.R;
 public class HHNextStepFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     private AppCompatTextView txt_self_assessment,txt_self_assessment_subtitle,txt_my_help_center,txt_my_help_center_subtitle,txt_export_my_trace,txt_export_my_trace_subtitle;
-    private LinearLayout linear_cancle_nextstep;
+    private LinearLayout linear_cancle_nextstep,linear_self_assessment,linear_my_help_center,linear_export_my_trace;
     public HHNextStepFragment() {
         // Required empty public constructor
     }
@@ -47,12 +49,10 @@ public class HHNextStepFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_h_h_next_step, container, false);
         init(view);
@@ -62,6 +62,9 @@ public class HHNextStepFragment extends Fragment implements View.OnClickListener
     private void init(View view) {
 
         linear_cancle_nextstep = view.findViewById(R.id.linear_cancle_nextstep);
+        linear_self_assessment = view.findViewById(R.id.linear_self_assessment);
+        linear_my_help_center = view.findViewById(R.id.linear_my_help_center);
+        linear_export_my_trace = view.findViewById(R.id.linear_export_my_trace);
 
         txt_self_assessment = view.findViewById(R.id.txt_self_assessment);
         txt_my_help_center = view.findViewById(R.id.txt_my_help_center);
@@ -78,9 +81,10 @@ public class HHNextStepFragment extends Fragment implements View.OnClickListener
         txt_self_assessment_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));
         txt_my_help_center_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));
         txt_export_my_trace_subtitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Utils.DIN_MEDIUM));
-
         linear_cancle_nextstep.setOnClickListener(this);
-
+        linear_self_assessment.setOnClickListener(this);
+        linear_my_help_center.setOnClickListener(this);
+        linear_export_my_trace.setOnClickListener(this);
     }
 
     @Override
@@ -90,6 +94,25 @@ public class HHNextStepFragment extends Fragment implements View.OnClickListener
                 ((MainActivity)getActivity()).onBackPressed();
                 break;
             }
+            case R.id.linear_self_assessment:{
+                OpenWebView();
+                break;
+            }
+            case R.id.linear_my_help_center:{
+                OpenWebView();
+                break;
+            }
+            case R.id.linear_export_my_trace:{
+
+                break;
+            }
         }
+    }
+
+    private void OpenWebView(){
+        Intent viewIntent =
+                new Intent("android.intent.action.VIEW",
+                        Uri.parse("https://honestherd.com/"));
+        startActivity(viewIntent);
     }
 }

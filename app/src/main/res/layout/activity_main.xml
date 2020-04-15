@@ -696,6 +696,7 @@
                 android:layout_marginBottom="45dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_privacypolicy_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"

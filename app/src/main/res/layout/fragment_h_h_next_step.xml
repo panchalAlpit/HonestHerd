@@ -27,6 +27,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/linear_self_assessment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -67,6 +68,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linear_my_help_center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -107,6 +109,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linear_export_my_trace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -131,9 +134,8 @@
                     android:id="@+id/txt_export_my_trace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/export_my_trace"
+                    android:text="@string/coming_soon"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView

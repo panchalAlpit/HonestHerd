@@ -44,6 +44,8 @@ public class HHApiCall  extends AsyncTask<String, JSONObject, JSONObject> {
         this.context = context;
         this.url = url;
         this.onUpdateListener = onUpdateListener;
+
+        Log.e("CheckURl", "HHApiCall: "+url );
     }
     @Override
     protected void onPreExecute() {

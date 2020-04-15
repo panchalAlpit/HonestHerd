@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout linear_menu_history;
     private AppCompatTextView txt_viewmap, txt_datapolicy, txt_my_coins,txt_share_world,txt_assessment_tool,txt_export_my_path,txt_dont_feel_well,txt_follow_twitter;
     AppCompatTextView txt_clipboard,txt_diagnosis_project,txt_xml_export,txt_sub_near_test_center,txt_privacy_seriously,txt_news_version,txt_sub_my_coins,txt_betheherd,txt_total_coins,txt_delete_account
-            ,txt_incentive_partner;
+            ,txt_incentive_partner,txt_privacypolicy_main;
 //    AppCompatTextView txt_delete_account,txt_emergency_info,txt_logout;
     public static AppCompatTextView txt_date_map_fregment;
     public static AppCompatTextView txt_month_map_fregment;
@@ -100,23 +100,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
+
+//        HyperTrack.enableDebugLogging();
+        hyperTrack = HyperTrack.getInstance(MainActivity.this, "7pXsJ2QfvGFLjzyJG-dNUm99YT9iiqd0UsXNV6qHb9wPr0ebWQDlYmjEYMPn8KNjC8x-DA-19Yjg2urO8w9DPw");
+        hyperTrack.start();
+        hyperTrack.requestPermissionsIfNecessary();
+
+
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        HyperTrack.enableDebugLogging();
-        hyperTrack = HyperTrack.getInstance(MainActivity.this, "7pXsJ2QfvGFLjzyJG-dNUm99YT9iiqd0UsXNV6qHb9wPr0ebWQDlYmjEYMPn8KNjC8x-DA-19Yjg2urO8w9DPw");
-        hyperTrack.requestPermissionsIfNecessary();
-        hyperTrack.start();
-
-        if (firebaseUser.getPhoneNumber() != null) {
+//        if (firebaseUser.getPhoneNumber() != null)
+        {
             hyperTrack.setDeviceName(firebaseUser.getUid());
         }
+
         initMathod();
         if (HHSharedPrefrence.getAddData(MainActivity.this)) {
             addUserDetails();
         }
         Log.e("TAG", "onCreate: " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 //        Log.e("ssss", "onCreate: " + firebaseUser.getPhoneNumber());
-//        Log.e("ssss", "onCreate: " + hyperTrack.getDeviceID());
+        Log.e("hyperTrack", "onCreate:ID " + hyperTrack.getDeviceID());
 
         FetchTotalCoins();
     }
@@ -124,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initMathod() {
 //        addFragment();
-
+        txt_privacypolicy_main = findViewById(R.id.txt_privacypolicy_main);
         txt_share_world  =findViewById(R.id.txt_share_world);
         txt_assessment_tool = findViewById(R.id.txt_assessment_tool);
         txt_export_my_path = findViewById(R.id.txt_export_my_path);
@@ -164,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_follow_twitter.setOnClickListener(this);
         txt_delete_account.setOnClickListener(this);
         txt_incentive_partner.setOnClickListener(this);
+        txt_privacypolicy_main.setOnClickListener(this);
 
 
 //        txt_logout.setOnClickListener(this);
@@ -272,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.txt_share_world:{
-                OpenBrowser();
+                OpenBrowser(Utils.WEBURL);
                 break;
             }
             case R.id.txt_assessment_tool:{
@@ -292,7 +297,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.txt_datapolicy:{
-                OpenBrowser();
+                OpenBrowser(Utils.WEBURL);
             }
             case R.id.txt_follow_twitter:{
                 OpenTwitter();
@@ -311,7 +316,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             case R.id.txt_incentive_partner:{
-                OpenBrowser();
+                OpenBrowser(Utils.WEBURL);
+                break;
+            }
+
+            case R.id.txt_privacypolicy_main:{
+                OpenBrowser(Utils.PRIVACY_POLICY);
                 break;
             }
             /*case R.id.txt_logout: {
@@ -360,24 +370,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-    void OpenBrowser(){
-        Intent intent = new Intent(Intent.ACTION_VIEW, Utils.WEBURL);
+    void OpenBrowser(Uri url){
+        Intent intent = new Intent(Intent.ACTION_VIEW, url);
         startActivity(intent);
         CloseDrawer();
     }
 
     void OpenTwitter(){
-        Intent intent = null;
         try {
-            // get the Twitter app if possible
-            this.getPackageManager().getPackageInfo("com.twitter.android", 0);
-            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=HonestHerd"));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        } catch (Exception e) {
-            // no Twitter app, revert to browser
-            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com"));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=HonestHerd")));
+        }catch (Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/#!/HonestHerd")));
         }
-        this.startActivity(intent);
         CloseDrawer();
     }
 

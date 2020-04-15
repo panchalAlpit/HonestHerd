@@ -100,12 +100,12 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
     private LocationRequest mLocationRequest;
     private FusedLocationProviderClient fusedLocationProviderClient;
 //    HyperTrack hyperTrack;
-    LinearLayout linear_menu_history;
-     Map<String, Object> order;
+    private LinearLayout linear_menu_history;
+    private Map<String, Object> order;
     private AppCompatTextView txt_place,txt_walk,txt_vehicle;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseUser firebaseUser;
-    ArrayList<HHUserGeopoint> geopointArrayList = new ArrayList<>();
+    private ArrayList<HHUserGeopoint> geopointArrayList = new ArrayList<>();
     LocationManager locationManager;
 
     @Override
@@ -117,8 +117,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hhmap_fregment, container, false);
 
@@ -161,7 +160,6 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         FetchAllUserLatLong();
         return view;
     }
-
 
     void  init(View view){
         linear_menu_history = view.findViewById(R.id.linear_menu_history);
@@ -421,7 +419,12 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         if (((MainActivity)getActivity()).hyperTrack.isRunning()){
 //            Map<String,Object> d = new HashMap<>();
 //            d.put("address", "Test");
-            ((MainActivity)getActivity()).hyperTrack.addTripMarker(order);
+            try {
+                ((MainActivity)getActivity()).hyperTrack.addTripMarker(order);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
     }
 

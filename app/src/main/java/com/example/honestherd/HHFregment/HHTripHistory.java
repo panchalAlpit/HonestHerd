@@ -244,7 +244,6 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
         return listOfDates;
     }
 
-
     public void FetchTotalCoins(final String fetchs, final int index){
         Log.e("TAG", "FetchTotalCoins: "+fetchs +"  "+firebaseUser.getUid());
         final String[] spoint = new String[0];
@@ -376,7 +375,6 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
             }
         }
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     void ChangedDate(int index){

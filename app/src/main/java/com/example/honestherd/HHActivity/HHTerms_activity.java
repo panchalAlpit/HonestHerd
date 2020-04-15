@@ -10,6 +10,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
@@ -40,14 +41,14 @@ public class HHTerms_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
 
-        if (ContextCompat.checkSelfPermission(HHTerms_activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        /*if (ContextCompat.checkSelfPermission(HHTerms_activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(HHTerms_activity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
                 ActivityCompat.requestPermissions(HHTerms_activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             } else {
                 ActivityCompat.requestPermissions(HHTerms_activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
-        }
+        }*/
 
         setContentView(R.layout.activity_h_h_terms_activity);
         txt_agree = findViewById(R.id.txt_agree);
@@ -106,7 +107,8 @@ public class HHTerms_activity extends AppCompatActivity {
             @Override
             public void onClick(View widget) {
                 // On Click Action
-                Toast.makeText(HHTerms_activity.this,userName,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HHTerms_activity.this,userName,Toast.LENGTH_SHORT).show();
+                OpenWebView();
             }
 
             @Override
@@ -124,7 +126,8 @@ public class HHTerms_activity extends AppCompatActivity {
             public void onClick(View widget) {
 
                 // On Click Action
-                Toast.makeText(HHTerms_activity.this,songName,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HHTerms_activity.this,songName,Toast.LENGTH_SHORT).show();
+                OpenWebView();
 
             }
 
@@ -139,6 +142,13 @@ public class HHTerms_activity extends AppCompatActivity {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         textView.setText(spanText, TextView.BufferType.SPANNABLE);
 
+    }
+
+    public void OpenWebView(){
+        Intent viewIntent =
+                new Intent("android.intent.action.VIEW",
+                        Uri.parse("https://honestherd.com/privacy-policy.php"));
+        startActivity(viewIntent);
     }
 
 }
