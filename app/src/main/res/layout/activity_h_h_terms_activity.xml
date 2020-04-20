@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".HHActivity.HHTerms_activity">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -32,11 +32,65 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:gravity="center"
-            android:text="@string/welcome"
+            android:text="@string/pp_t"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:textSize="35sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_english"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/english"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_hindi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hindi"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_chinese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/chinese"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+
+            android:textSize="16sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_french"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/french"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_italian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/italian"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            />
+
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_contnet_terms"
@@ -45,7 +99,8 @@
             android:layout_margin="20dp"
             android:text="@string/term_policy"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_privacypolicy"
@@ -54,23 +109,26 @@
             android:layout_margin="20dp"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
-
+            android:textSize="20sp"
+            android:visibility="gone"/>
 
         <LinearLayout
+            android:id="@+id/linear_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:orientation="horizontal"
             android:gravity="center"
             android:background="@drawable/border_rectangle"
-            android:layout_margin="20dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="40dp">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:tint="@color/green_dark"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:tint="@color/light_green"
                 android:layout_marginEnd="20dp"
-                android:src="@drawable/correct_icon"/>
+                android:src="@drawable/correct_icon_new"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_agree"
@@ -84,7 +142,8 @@
                 android:text="@string/join_herd"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

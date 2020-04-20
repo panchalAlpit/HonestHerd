@@ -63,17 +63,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static LinearLayout linear_dateselect;
     public static HyperTrack hyperTrack;
     LinearLayout linear_menu_history;
-    private AppCompatTextView txt_viewmap, txt_datapolicy, txt_my_coins,txt_share_world,txt_assessment_tool,txt_export_my_path,txt_dont_feel_well,txt_follow_twitter;
-    AppCompatTextView txt_clipboard,txt_diagnosis_project,txt_xml_export,txt_sub_near_test_center,txt_privacy_seriously,txt_news_version,txt_sub_my_coins,txt_betheherd,txt_total_coins,txt_delete_account
-            ,txt_incentive_partner,txt_privacypolicy_main;
+   // private AppCompatTextView txt_viewmap, txt_datapolicy, txt_my_coins,txt_share_world,txt_assessment_tool,txt_export_my_path,txt_dont_feel_well,txt_follow_twitter;
+   // AppCompatTextView txt_clipboard,txt_diagnosis_project,txt_xml_export,txt_sub_near_test_center,txt_privacy_seriously,txt_news_version,txt_sub_my_coins,txt_betheherd,txt_total_coins,txt_delete_account,txt_incentive_partner,txt_privacypolicy_main;
 //    AppCompatTextView txt_delete_account,txt_emergency_info,txt_logout;
     public static AppCompatTextView txt_date_map_fregment;
     public static AppCompatTextView txt_month_map_fregment;
     DrawerLayout drawer;
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
-
-
+    String screenName = "";
+    AppCompatImageView img_globalmap,img_delete_account,img_help;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -103,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             hyperTrack.setDeviceName(firebaseUser.getUid());
         }
 
+        screenName = getIntent().getStringExtra("screen");
         initMathod();
         if (HHSharedPrefrence.getAddData(MainActivity.this)) {
             addUserDetails();
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initMathod() {
 //        addFragment();
-        txt_privacypolicy_main = findViewById(R.id.txt_privacypolicy_main);
+        /*txt_privacypolicy_main = findViewById(R.id.txt_privacypolicy_main);
         txt_share_world  =findViewById(R.id.txt_share_world);
         txt_assessment_tool = findViewById(R.id.txt_assessment_tool);
         txt_export_my_path = findViewById(R.id.txt_export_my_path);
@@ -135,61 +135,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_total_coins = findViewById(R.id.txt_total_coins);
         txt_delete_account = findViewById(R.id.txt_delete_account);
         txt_my_coins = findViewById(R.id.txt_my_coins);
-//        txt_delete_account = findViewById(R.id.txt_delete_account);
         txt_datapolicy = findViewById(R.id.txt_datapolicy);
-//        txt_emergency_info = findViewById(R.id.txt_emergency_info);
-        txt_viewmap = findViewById(R.id.txt_viewmap);
+        txt_incentive_partner = findViewById(R.id.txt_incentive_partner);
+        txt_viewmap = findViewById(R.id.txt_viewmap);*/
+
+        img_globalmap = findViewById(R.id.img_globalmap);
+        img_delete_account = findViewById(R.id.img_delete_account);
+        img_help = findViewById(R.id.img_help);
+
 //        txt_logout = findViewById(R.id.txt_logout);
         img_drawer_menu = findViewById(R.id.img_drawer_menu);
         txt_cancel_drawer = findViewById(R.id.txt_cancel_drawer);
         drawer = findViewById(R.id.drawer);
         linear_dateselect = findViewById(R.id.linear_dateselect);
-        txt_incentive_partner = findViewById(R.id.txt_incentive_partner);
+
         linear_dateselect.setOnClickListener(this);
         txt_date_map_fregment = findViewById(R.id.txt_date_map_fregment);
         txt_month_map_fregment = findViewById(R.id.txt_month_map_fregment);
         img_drawer_menu.setOnClickListener(this);
         txt_cancel_drawer.setOnClickListener(this);
-        txt_viewmap.setOnClickListener(this);
-        txt_share_world.setOnClickListener(this);
-        txt_assessment_tool.setOnClickListener(this);
-        txt_export_my_path.setOnClickListener(this);
-        txt_dont_feel_well.setOnClickListener(this);
-        txt_follow_twitter.setOnClickListener(this);
-        txt_delete_account.setOnClickListener(this);
-        txt_incentive_partner.setOnClickListener(this);
-        txt_privacypolicy_main.setOnClickListener(this);
+
+        img_globalmap.setOnClickListener(this);
+        img_delete_account.setOnClickListener(this);
+        img_help.setOnClickListener(this);
+//        txt_viewmap.setOnClickListener(this);
+//        txt_share_world.setOnClickListener(this);
+//        txt_assessment_tool.setOnClickListener(this);
+//        txt_export_my_path.setOnClickListener(this);
+//        txt_dont_feel_well.setOnClickListener(this);
+//        txt_follow_twitter.setOnClickListener(this);
+
+//        txt_delete_account.setOnClickListener(this);
+//        txt_incentive_partner.setOnClickListener(this);
+//        txt_privacypolicy_main.setOnClickListener(this);
 
 
 //        txt_logout.setOnClickListener(this);
 //        txt_emergency_info.setOnClickListener(this);
 //        txt_delete_account.setOnClickListener(this);
 
-        txt_total_coins.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-        txt_share_world.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-        txt_assessment_tool.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-        txt_export_my_path.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-        txt_dont_feel_well.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-        txt_follow_twitter.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-        txt_betheherd.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-        txt_clipboard.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
-        txt_diagnosis_project.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
-        txt_xml_export.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
-        txt_sub_near_test_center.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
-        txt_privacy_seriously.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
-        txt_news_version.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
-        txt_sub_my_coins.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+//        txt_total_coins.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
 
-        txt_my_coins.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-//        txt_logout.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-//        txt_delete_account.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-        txt_viewmap.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-//        txt_emergency_info.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-        txt_datapolicy.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+//        txt_share_world.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+//        txt_assessment_tool.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+//        txt_export_my_path.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+//        txt_dont_feel_well.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+//        txt_follow_twitter.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+
+//        txt_betheherd.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+//        txt_clipboard.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+//        txt_diagnosis_project.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+//        txt_xml_export.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+//        txt_sub_near_test_center.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+//        txt_privacy_seriously.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+//        txt_news_version.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+//        txt_sub_my_coins.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+
+//        txt_my_coins.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+//        txt_viewmap.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+//        txt_datapolicy.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+
         txt_date_map_fregment.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_month_map_fregment.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
 
-        addFragementFeeling_well();
+       // addFragementFeeling_well();
+        if (screenName.equals(Utils.FRAGMENT_MAP)){
+            addFragment();
+        }else if (screenName.equals(Utils.FRAGMENT_NextStep)){
+            AddNextStepFragment();
+        }
+
         setCurrentDate();
     }
 
@@ -257,7 +272,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 drawer.closeDrawers();
                 break;
             }
-            case R.id.txt_viewmap: {
+            case R.id.img_globalmap: {
                 Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
                 Log.e("TAG", "onClick: " + f.getTag());
                 if (!f.getTag().equals(Utils.FRAGMENT_MAP)) {
@@ -266,10 +281,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 CloseDrawer();
                 break;
             }
-            case R.id.txt_share_world:{
+            case R.id.img_help:{
                 OpenBrowser(Utils.WEBURL);
                 break;
             }
+            /*
             case R.id.txt_assessment_tool:{
                 Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
                 Log.e("TAG", "onClick: " + f.getTag());
@@ -279,8 +295,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 CloseDrawer();
 //                OpenBrowser();
                 break;
-            }
-            case R.id.txt_dont_feel_well:{
+            }*/
+            /*case R.id.txt_dont_feel_well:{
 //                OpenBrowser();
                 addFragementFeeling_well();
                 CloseDrawer();
@@ -291,21 +307,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.txt_follow_twitter:{
                 OpenTwitter();
-              /*  FirebaseAuth.getInstance().signOut();
+              *//*  FirebaseAuth.getInstance().signOut();
                 CloseDrawer();
                 HHSharedPrefrence.SetLogin(MainActivity.this, false);
                 HHSharedPrefrence.ClearSession(MainActivity.this);
                 Intent intent = new Intent(MainActivity.this, HHTerms_activity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//mak
-                startActivity(intent);*/
+                startActivity(intent);*//*
                 break;
-            }
-            case R.id.txt_delete_account:{
+            }*/
+            case R.id.img_delete_account:{
                 DeleteAccount_data();
                 break;
             }
 
-            case R.id.txt_incentive_partner:{
+            /*case R.id.txt_incentive_partner:{
                 OpenBrowser(Utils.WEBURL);
                 break;
             }
@@ -313,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.txt_privacypolicy_main:{
                 OpenBrowser(Utils.PRIVACY_POLICY);
                 break;
-            }
+            }*/
             /*case R.id.txt_logout: {
                 FirebaseAuth.getInstance().signOut();
                 CloseDrawer();
@@ -351,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("TAGID", document.getId() + " => " + document.getId());
                                 Log.d("TAGID", document.getId() + " => " + document.get("totalPoints")+" --- "+firebaseUser.getUid());
-                                txt_total_coins.setText(document.get("totalPoints").toString());
+//                                txt_total_coins.setText(document.get("totalPoints").toString());
                             }
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
@@ -381,7 +397,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHFeeling_well_Fragment) {
+        if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHMap_fregment || getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHNextStepFragment ) {
             finish();
         } else {
             super.onBackPressed();

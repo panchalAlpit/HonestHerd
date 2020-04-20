@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.mobilefirst.honestherd.HHGlobal.HHSharedPrefrence;
 import com.mobilefirst.honestherd.HHGlobal.Utils;
@@ -25,12 +27,16 @@ public class HHSplash_activity extends AppCompatActivity {
         txt_title_splashscreen = findViewById(R.id.txt_title_splashscreen);
         txt_title_splashscreen.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
 
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        float dpHeight = displayMetrics.heightPixels;
+        Log.e("onCreate:", "heightPixels:- "+displayMetrics.heightPixels+" widthPixels:- "+displayMetrics.widthPixels );
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
                 if (HHSharedPrefrence.getLogin(HHSplash_activity.this)){
-                    Intent i = new Intent(HHSplash_activity.this, MainActivity.class);
+                    Intent i = new Intent(HHSplash_activity.this, HHHealthStatusActivity.class);
                     startActivity(i);
                     finish();
                 }else {

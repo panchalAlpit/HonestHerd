@@ -65,5 +65,11 @@
 • We may provide scientific and medical communities with anonymised community data for research.\n\n
 • Any information is neither intended to be nor should be understood as medical opinion, advice or diagnosis of any condition.</string>
 
+    <string name="pp_t">Privacy policy &amp; terms of use</string>
+    <string name="english">English</string>
+    <string name="hindi">हिन्दी (Coming soon)</string>
+    <string name="chinese">中文 (Coming soon)</string>
+    <string name="italian">Italiano (Coming soon)</string>
+    <string name="french">Française (Coming soon)</string>
 
 </resources>

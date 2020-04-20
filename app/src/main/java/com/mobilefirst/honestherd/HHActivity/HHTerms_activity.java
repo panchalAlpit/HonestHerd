@@ -14,6 +14,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,14 +28,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class HHTerms_activity extends AppCompatActivity {
+public class HHTerms_activity extends AppCompatActivity implements View.OnClickListener {
 
-    AppCompatTextView txt_agree,txt_termof_use,txt_contnet_terms,txt_privacypolicy;
+    AppCompatTextView txt_agree, txt_termof_use, txt_contnet_terms, txt_privacypolicy;
+    AppCompatTextView txt_english,txt_hindi,txt_chinese,txt_french,txt_italian;
     private FirebaseAuth mAuth;
+    LinearLayout linear_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_h_h_terms_activity);
         mAuth = FirebaseAuth.getInstance();
 
         /*if (ContextCompat.checkSelfPermission(HHTerms_activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -46,55 +50,36 @@ public class HHTerms_activity extends AppCompatActivity {
             }
         }*/
 
-        setContentView(R.layout.activity_h_h_terms_activity);
+        init();
+        singleTextViewSingup(txt_privacypolicy, " Privacy Policy", " and ", "Terms of Service");
+    }
+
+    private void init() {
+        txt_english = findViewById(R.id.txt_english);
+        txt_hindi = findViewById(R.id.txt_hindi);
+        txt_chinese = findViewById(R.id.txt_chinese);
+        txt_french = findViewById(R.id.txt_french);
+        txt_italian = findViewById(R.id.txt_italian);
         txt_agree = findViewById(R.id.txt_agree);
         txt_termof_use = findViewById(R.id.txt_termof_use);
         txt_contnet_terms = findViewById(R.id.txt_contnet_terms);
         txt_privacypolicy = findViewById(R.id.txt_privacypolicy);
+        linear_login = findViewById(R.id.linear_login);
 
         txt_agree.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_termof_use.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_contnet_terms.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
 
-        txt_agree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        txt_english.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+        txt_hindi.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+        txt_chinese.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+        txt_french.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+        txt_italian.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
 
-                mAuth.signInAnonymously()
-                        .addOnCompleteListener(HHTerms_activity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("TAG", "signInAnonymously:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Log.e("TAG", "onActivityResult: "+user.getUid());
-                                    HHSharedPrefrence.SetLogin(HHTerms_activity.this,true);
-                                    HHSharedPrefrence.SetJointDate(HHTerms_activity.this, Utils.getDateFromate("yyyy-MM-dd"));
-                                    Intent intent = new Intent(HHTerms_activity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("TAG", "signInAnonymously:failure", task.getException());
-                                    Toast.makeText(HHTerms_activity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                                    HHSharedPrefrence.SetLogin(HHTerms_activity.this,false);
-                                }
-
-                                // ...
-                            }
-                        });
-
-//                Intent intent = new Intent(HHTerms_activity.this, HHLogin_activity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-//                finish();
-            }
-        });
-        singleTextViewSingup(txt_privacypolicy," Privacy Policy"," and ","Terms of Service");
+        linear_login.setOnClickListener(this);
     }
 
-    private  void singleTextViewSingup(TextView textView, final String userName, String status, final String songName) {
+    private void singleTextViewSingup(TextView textView, final String userName, String status, final String songName) {
 
         SpannableStringBuilder spanText = new SpannableStringBuilder();
         spanText.append(getResources().getString(R.string.privacy_policy));
@@ -133,18 +118,55 @@ public class HHTerms_activity extends AppCompatActivity {
                 textPaint.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
                 textPaint.setUnderlineText(true);    // this remove the underline
             }
-        },spanText.length() - songName.length(), spanText.length(), 0);
+        }, spanText.length() - songName.length(), spanText.length(), 0);
 
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         textView.setText(spanText, TextView.BufferType.SPANNABLE);
 
     }
 
-    public void OpenWebView(){
+    public void OpenWebView() {
         Intent viewIntent =
                 new Intent("android.intent.action.VIEW",
                         Uri.parse("https://honestherd.com/privacy-policy.php"));
         startActivity(viewIntent);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.linear_login: {
+                loginAnonymously();
+                break;
+            }
+        }
+    }
+
+    void loginAnonymously() {
+
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(HHTerms_activity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("TAG", "signInAnonymously:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Log.e("TAG", "onActivityResult: " + user.getUid());
+                            HHSharedPrefrence.SetLogin(HHTerms_activity.this, true);
+                            HHSharedPrefrence.SetJointDate(HHTerms_activity.this, Utils.getDateFromate("yyyy-MM-dd"));
+                            Intent intent = new Intent(HHTerms_activity.this, HHHealthStatusActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("TAG", "signInAnonymously:failure", task.getException());
+                            Toast.makeText(HHTerms_activity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            HHSharedPrefrence.SetLogin(HHTerms_activity.this, false);
+                        }
+
+                        // ...
+                    }
+                });
+    }
 }
