@@ -37,28 +37,26 @@
                 android:text="26 March 2020"
                 android:textSize="18dp"
                 android:textAllCaps="true"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:visibility="gone"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10:00 AM"
-                android:textColor="@color/white"
+                android:textColor="@color/light_green"
                 android:textAllCaps="true"
                 android:textSize="18dp"/>
-
-
-
 
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_address"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="PrahladNager, Gujarat"
+            android:text="PrahladNager, Gujarat PrahladNager, Gujarat "
             android:textColor="@android:color/white"
             android:textSize="15dp"/>
 
@@ -66,7 +64,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:background="@android:color/white"/>
+        android:background="@color/borderview_color"/>
 
 </LinearLayout>

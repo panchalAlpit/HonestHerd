@@ -1,6 +1,7 @@
 package com.mobilefirst.honestherd;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -24,6 +25,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.mobilefirst.honestherd.HHActivity.HHCoinHistoryActivity;
 import com.mobilefirst.honestherd.HHActivity.HHTerms_activity;
 import com.mobilefirst.honestherd.HHFregment.HHFeeling_well_Fragment;
 import com.mobilefirst.honestherd.HHFregment.HHMap_fregment;
@@ -62,12 +64,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     AppCompatImageView img_drawer_menu, txt_cancel_drawer;
     public static LinearLayout linear_dateselect;
     public static HyperTrack hyperTrack;
-    LinearLayout linear_menu_history;
+    LinearLayout linear_menu_history,linear_totalcoin;
    // private AppCompatTextView txt_viewmap, txt_datapolicy, txt_my_coins,txt_share_world,txt_assessment_tool,txt_export_my_path,txt_dont_feel_well,txt_follow_twitter;
    // AppCompatTextView txt_clipboard,txt_diagnosis_project,txt_xml_export,txt_sub_near_test_center,txt_privacy_seriously,txt_news_version,txt_sub_my_coins,txt_betheherd,txt_total_coins,txt_delete_account,txt_incentive_partner,txt_privacypolicy_main;
 //    AppCompatTextView txt_delete_account,txt_emergency_info,txt_logout;
     public static AppCompatTextView txt_date_map_fregment;
     public static AppCompatTextView txt_month_map_fregment;
+    AppCompatTextView txt_totalcoin;
     DrawerLayout drawer;
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
@@ -139,6 +142,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_incentive_partner = findViewById(R.id.txt_incentive_partner);
         txt_viewmap = findViewById(R.id.txt_viewmap);*/
 
+        txt_totalcoin = findViewById(R.id.txt_totalcoin);
+        linear_totalcoin = findViewById(R.id.linear_totalcoin);
+
         img_globalmap = findViewById(R.id.img_globalmap);
         img_delete_account = findViewById(R.id.img_delete_account);
         img_help = findViewById(R.id.img_help);
@@ -155,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         img_drawer_menu.setOnClickListener(this);
         txt_cancel_drawer.setOnClickListener(this);
 
+        linear_totalcoin.setOnClickListener(this);
         img_globalmap.setOnClickListener(this);
         img_delete_account.setOnClickListener(this);
         img_help.setOnClickListener(this);
@@ -200,9 +207,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
        // addFragementFeeling_well();
         if (screenName.equals(Utils.FRAGMENT_MAP)){
+            Log.e("FRAGMENT_MAP", "initMathod: " );
             addFragment();
         }else if (screenName.equals(Utils.FRAGMENT_NextStep)){
+            Log.e("FRAGMENT_NextStep", "initMathod: " );
             AddNextStepFragment();
+        }else if (screenName.equals(Utils.FRAGMENT_TIRPHISTORY)){
+            Log.e("FRAGMENT_TIRPHISTORY", "initMathod: " );
+         //   addHistoryFragment();
         }
 
         setCurrentDate();
@@ -224,13 +236,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.commit();
     }
 
-    public void addHistoryFragment() {
-        linear_dateselect.setVisibility(View.VISIBLE);
+    public void addHistoryFragment(String date) {
+//        linear_dateselect.setVisibility(View.VISIBLE);
+
+        Bundle data = new Bundle();//create bundle instance
+        data.putString("selectDate", date);
+
         Fragment f = new HHTripHistory();
+        f.setArguments(data);
         FragmentManager manager = getSupportFragmentManager();
         String backStateName = f.getClass().getName();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frame_layout, f, "history");
+
+        transaction.replace(R.id.frame_layout, f, Utils.FRAGMENT_TIRPHISTORY);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -238,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void addFragment() {
         //first time call this method
 
-        linear_dateselect.setVisibility(View.INVISIBLE);
+//        linear_dateselect.setVisibility(View.INVISIBLE);
         Fragment f = new HHMap_fregment();
         FragmentManager manager = getSupportFragmentManager();
         String backStateName = f.getClass().getName();
@@ -249,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void addFragementFeeling_well() {
-        linear_dateselect.setVisibility(View.INVISIBLE);
+//        linear_dateselect.setVisibility(View.INVISIBLE);
         Fragment f = new HHFeeling_well_Fragment();
         FragmentManager manager = getSupportFragmentManager();
         String backStateName = f.getClass().getName();
@@ -283,6 +301,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.img_help:{
                 OpenBrowser(Utils.WEBURL);
+                break;
+            }
+            case R.id.linear_totalcoin:{
+                Intent intent = new Intent(MainActivity.this, HHCoinHistoryActivity.class);
+                startActivityForResult(intent,2);
                 break;
             }
             /*
@@ -367,7 +390,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("TAGID", document.getId() + " => " + document.getId());
                                 Log.d("TAGID", document.getId() + " => " + document.get("totalPoints")+" --- "+firebaseUser.getUid());
-//                                txt_total_coins.setText(document.get("totalPoints").toString());
+                                txt_totalcoin.setText(document.get("totalPoints").toString());
                             }
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
@@ -397,18 +420,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHMap_fregment || getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHNextStepFragment ) {
+        Log.e("TAG", "onBackPressed: "+getSupportFragmentManager().findFragmentById(R.id.frame_layout).getTag() );
+        if (getSupportFragmentManager().findFragmentById(R.id.frame_layout).getTag().equals(Utils.FRAGMENT_MAP) || getSupportFragmentManager().findFragmentById(R.id.frame_layout).getTag().equals(Utils.FRAGMENT_NextStep) ) {
             finish();
-        } else {
+        }
+        else {
             super.onBackPressed();
             if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHFeeling_well_Fragment) {
-                linear_dateselect.setVisibility(View.INVISIBLE);
+//                linear_dateselect.setVisibility(View.INVISIBLE);
 //                setCurrentDate();
-            }else if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHTripHistory){
-                linear_dateselect.setVisibility(View.VISIBLE);
-            }else {
-                linear_dateselect.setVisibility(View.INVISIBLE);
-            }
+            }/*else if (getSupportFragmentManager().findFragmentById(R.id.frame_layout) instanceof HHTripHistory){
+//                linear_dateselect.setVisibility(View.VISIBLE);
+
+            }*/
         }
     }
 
@@ -465,5 +489,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }).execute();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        try {
+            super.onActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == 2  && resultCode  == RESULT_OK) {
+                String requiredValue = data.getStringExtra("screen");
+                if (requiredValue.equals(Utils.FRAGMENT_TIRPHISTORY)){
+                    addHistoryFragment(data.getStringExtra("date"));
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+//            Toast.makeText(Activity.this, ex.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
 //https://demonuts.com/android-google-map-in-fragment/

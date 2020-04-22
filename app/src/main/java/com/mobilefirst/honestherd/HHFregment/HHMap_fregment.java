@@ -144,8 +144,12 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
                // boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
-                MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(getContext(),R.raw.map_style);
-                mMap.setMapStyle(mapStyleOptions);
+                if (getContext() !=null){
+                    MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(getContext(),R.raw.map_style);
+                    mMap.setMapStyle(mapStyleOptions);
+                }
+
+
             }
         });
         linear_menu_history.setOnClickListener(this);
@@ -378,7 +382,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.linear_menu_history:{
-                ((MainActivity)getActivity()).addHistoryFragment();
+               // ((MainActivity)getActivity()).addHistoryFragment(data.getStringExtra("date"));
                 break;
             }
             case R.id.txt_vehicle:{

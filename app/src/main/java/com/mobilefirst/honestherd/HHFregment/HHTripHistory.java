@@ -78,7 +78,7 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
     private RecyclerView recycle_custom_date;
     private RecyclerView recycle_history;
     private HHHistory_adpater history_adpater;
-    private AppCompatTextView txt_empty;
+    private AppCompatTextView txt_empty,txt_select_date;
     private AppCompatImageView btn_previous,btn_next;
     int date_index = 0,total_days = 0;
     private int mYear, mMonth, mDay;
@@ -103,10 +103,12 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_hhtrip_history, container, false);
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String selectdate = getArguments().getString("selectDate");
         init(view);
 
 //        HyperTrack.getInstance(getContext(), "7pXsJ2QfvGFLjzyJG-dNUm99YT9iiqd0UsXNV6qHb9wPr0ebWQDlYmjEYMPn8KNjC8x-DA-19Yjg2urO8w9DPw");
-        HistoryApiCall( Utils.getDateFromate("yyyy-MM-dd"));
+//        HistoryApiCall( Utils.getDateFromate("yyyy-MM-dd"));
+        HistoryApiCall(selectdate);
         CustomCalendar();
         total_days = Utils.NumberOFDays(HHSharedPrefrence.getJoindate(getActivity()),Utils.getDateFromate("yyyy-MM-dd"));
         Log.e("Number", "onCreateView: "+Utils.NumberOFDays("2020-03-25",Utils.getDateFromate("yyyy-MM-dd")) );
@@ -114,10 +116,12 @@ public class HHTripHistory extends Fragment implements View.OnClickListener {
         if (total_days == date_index){
             btn_previous.setVisibility(View.GONE);
         }
+        txt_select_date.setText(Utils.getFormateDate("dd-MMMM-yyyy",selectdate));
         return view;
     }
 
     void init(View view){
+        txt_select_date = view.findViewById(R.id.txt_select_date);
         recycle_history = view.findViewById(R.id.recycle_history);
         frame_triphistory = view.findViewById(R.id.frame_triphistory);
         recycle_custom_date = view.findViewById(R.id.recycle_custom_date);

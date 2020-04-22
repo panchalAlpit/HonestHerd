@@ -28,7 +28,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_date_map_fregment"
@@ -52,14 +53,41 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_totalcoin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/coin"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_totalcoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_marginStart="15dp"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="80dp"
+                    android:layout_height="60dp"
                     android:layout_margin="10dp"
                     android:padding="5dp"
                     app:srcCompat="@drawable/app_icon_new" />
@@ -70,14 +98,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right">
+                android:gravity="center">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_drawer_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    app:srcCompat="@drawable/ic_sort_green_300_48dp" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    app:srcCompat="@drawable/menu_new"
+                    app:tint="@color/light_green"/>
 
             </LinearLayout>
 

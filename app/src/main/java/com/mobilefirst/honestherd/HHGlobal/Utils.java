@@ -61,6 +61,7 @@ public class Utils {
     public static final String FRAGMENT_MAP = "map_fragment";
     public static final String FRAGMENT_feeling = "FEELING_fragment";
     public static final String FRAGMENT_NextStep = "NextStep_fragment";
+    public static final String FRAGMENT_TIRPHISTORY = "TirpHistory_fragment";
 
     //FontName
     public static final String DIN_BOLD = "din_bold.ttf";

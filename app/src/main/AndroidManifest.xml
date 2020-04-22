@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".HHActivity.HHHealthStatusActivity"></activity>
+        <activity android:name=".HHActivity.HHCoinHistoryActivity"></activity>
+        <activity android:name=".HHActivity.HHHealthStatusActivity" />
         <activity android:name=".HHActivity.HHLogin_activity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".HHActivity.HHTerms_activity" />
