@@ -2,11 +2,13 @@ package com.mobilefirst.honestherd.HHActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -43,6 +45,7 @@ public class HHHealthStatusActivity extends AppCompatActivity implements View.On
     private FirebaseUser firebaseUser;
     GeoPoint latLng;
     LocationManager mLocationManager;
+    AppCompatTextView txt_how_you_feel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,10 @@ public class HHHealthStatusActivity extends AppCompatActivity implements View.On
     private void init() {
         linear_feel_well_healthstatus = findViewById(R.id.linear_feel_well_healthstatus);
         linear_feel_sick_healthstatus =findViewById(R.id.linear_feel_sick_healthstatus);
+        txt_how_you_feel = findViewById(R.id.txt_how_you_feel);
+
+        txt_how_you_feel.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+
         linear_feel_sick_healthstatus.setOnClickListener(this);
         linear_feel_well_healthstatus.setOnClickListener(this);
     }
