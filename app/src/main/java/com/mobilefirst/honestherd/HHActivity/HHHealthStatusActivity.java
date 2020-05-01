@@ -112,9 +112,12 @@ public class HHHealthStatusActivity extends AppCompatActivity implements View.On
                 } else {
                     updateHealthLog("FEELINGSICK");
                 }
-                Intent intent = new Intent(HHHealthStatusActivity.this, MainActivity.class);
-                intent.putExtra("screen",Utils.FRAGMENT_NextStep);
+                Intent intent = new Intent(HHHealthStatusActivity.this,IMSickActivity.class);
                 startActivity(intent);
+
+//                Intent intent = new Intent(HHHealthStatusActivity.this, MainActivity.class);
+//                intent.putExtra("screen",Utils.FRAGMENT_NextStep);
+//                startActivity(intent);
                 break;
             }
         }

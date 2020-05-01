@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".HHActivity.IMSickActivity"
+    android:scrollbars="none"
+    android:background="@color/background_color">
+
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="40dp"
+        app:srcCompat="@drawable/app_icon_new" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_my_doctor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_doctor"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:textAllCaps="true"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/border_rectangle_pink"
+        android:layout_margin="20dp"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/covid_icon"
+                android:padding="28dp"
+                app:tint="@color/pink_1"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:gravity="center_vertical">
+
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_covid19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/covid19"
+                android:textSize="25sp"
+                android:textColor="@color/pink_1"
+                app:textAllCaps="true"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/border_rectangle_pink"
+        android:layout_margin="20dp"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/covid_icon"
+                android:padding="28dp"
+                app:tint="@color/pink_1"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_influenza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/influenza"
+                android:textSize="25sp"
+                android:textColor="@color/pink_1"
+                app:textAllCaps="true"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/border_rectangle_lightgreen"
+        android:layout_margin="20dp">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_none_above"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/none_above"
+                android:textSize="25sp"
+                android:textColor="@color/light_green"
+                app:textAllCaps="true"/>
+
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>

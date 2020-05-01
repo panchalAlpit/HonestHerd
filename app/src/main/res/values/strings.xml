@@ -47,6 +47,7 @@
     <string name="nextstep">Next\nSteps?</string>
     <string name="self_assessment">Self assessment</string>
     <string name="my_help_center">My help center</string>
+    <string name="my_doctor">My doctor says i have</string>
 
     <string name="self_assessment_subtitle">A 5 min self assessment test by the team at HumanDX</string>
     <string name="my_help_center_subtitle">A local helping to heelp guide you through next steps</string>
@@ -67,9 +68,9 @@
 
     <string name="bulleted_list">
         <ul>
-        <li> On Honest Herd you are an anonymous user. We do not collect any personal information.<br/></li>\n
-        <li> If you are well or unwell we do not share your share individual data with anyone.<br/></li>\n
-        <li> We may provide scientific and medical communities with anonymised community data for research.<br/></li>
+        <li> On Honest Herd you are an anonymous user. We do not collect any personal information.<br /></li>\n
+        <li> If you are well or unwell we do not share your share individual data with anyone.<br /></li>\n
+        <li> We may provide scientific and medical communities with anonymised community data for research.<br /></li>
         </ul>
     </string>
 
@@ -86,5 +87,11 @@
     <string name="chinese">中文 (Coming soon)</string>
     <string name="italian">Italiano (Coming soon)</string>
     <string name="french">Française (Coming soon)</string>
+
+    <string name="covid19">covid19</string>
+    <string name="influenza">influenza</string>
+    <string name="none_above">none of the above</string>
+    <string name="stayhome">Please stay \n at home </string>
+    <string name="checkfewday">We will check on you in a few days</string>
 
 </resources>
