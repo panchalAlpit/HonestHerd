@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
@@ -32,6 +33,7 @@ public class HHTerms_activity extends AppCompatActivity implements View.OnClickL
 
     AppCompatTextView txt_agree, txt_termof_use, txt_contnet_terms, txt_privacypolicy;
     AppCompatTextView txt_english,txt_hindi,txt_chinese,txt_french,txt_italian;
+    AppCompatTextView txtprivacy1,txtprivacy2,txtprivacy3,byclicking;
     private FirebaseAuth mAuth;
     LinearLayout linear_login;
 
@@ -66,6 +68,14 @@ public class HHTerms_activity extends AppCompatActivity implements View.OnClickL
         txt_privacypolicy = findViewById(R.id.txt_privacypolicy);
         linear_login = findViewById(R.id.linear_login);
 
+        txtprivacy1 = findViewById(R.id.txtprivacy1);
+        txtprivacy2 = findViewById(R.id.txtprivacy2);
+        txtprivacy3 = findViewById(R.id.txtprivacy3);
+        byclicking = findViewById(R.id.byclicking);
+
+
+        txt_contnet_terms.setText(Html.fromHtml(getResources().getString(R.string.bulleted_list)));
+
         txt_agree.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_termof_use.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_contnet_terms.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
@@ -76,13 +86,18 @@ public class HHTerms_activity extends AppCompatActivity implements View.OnClickL
         txt_french.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
         txt_italian.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
 
+        txtprivacy1.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+        txtprivacy2.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+        txtprivacy3.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+        byclicking.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
+
         linear_login.setOnClickListener(this);
     }
 
     private void singleTextViewSingup(TextView textView, final String userName, String status, final String songName) {
 
         SpannableStringBuilder spanText = new SpannableStringBuilder();
-        spanText.append(getResources().getString(R.string.privacy_policy));
+     //   spanText.append(getResources().getString(R.string.privacy_policy));
         spanText.append(userName);
         spanText.setSpan(new ClickableSpan() {
             @Override
@@ -96,7 +111,7 @@ public class HHTerms_activity extends AppCompatActivity implements View.OnClickL
             public void updateDrawState(TextPaint textPaint) {
                 textPaint.setColor(getResources().getColor(R.color.white));    // you can use custom color
                 textPaint.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-                textPaint.setUnderlineText(true);    // this remove the underline
+                textPaint.setUnderlineText(false);    // this remove the underline
             }
         }, spanText.length() - userName.length(), spanText.length(), 0);
 
@@ -116,7 +131,7 @@ public class HHTerms_activity extends AppCompatActivity implements View.OnClickL
             public void updateDrawState(TextPaint textPaint) {
                 textPaint.setColor(getResources().getColor(R.color.white));    // you can use custom color   // you can use custom color
                 textPaint.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-                textPaint.setUnderlineText(true);    // this remove the underline
+                textPaint.setUnderlineText(false);    // this remove the underline
             }
         }, spanText.length() - songName.length(), spanText.length(), 0);
 

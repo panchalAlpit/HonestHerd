@@ -60,10 +60,25 @@
     <string name="incentive_partner">Become incentive partner</string>
     <string name="privacy_terms">Privacy policy \u00A0 Terms of use</string>
     <!--    <string name="term_policy">"Test</string>-->
-    <string name="term_policy">• On Honest Herd you are an anonymous user. We do not collect any personal information.\n\n
+    <string name="term_policy"> &#8226; On Honest Herd you are an anonymous user. We do not collect any personal information.\n\n
 • If you are well or unwell we do not share your share individual data with anyone.\n\n
 • We may provide scientific and medical communities with anonymised community data for research.\n\n
 • Any information is neither intended to be nor should be understood as medical opinion, advice or diagnosis of any condition.</string>
+
+    <string name="bulleted_list">
+        <ul>
+        <li> On Honest Herd you are an anonymous user. We do not collect any personal information.<br/></li>\n
+        <li> If you are well or unwell we do not share your share individual data with anyone.<br/></li>\n
+        <li> We may provide scientific and medical communities with anonymised community data for research.<br/></li>
+        </ul>
+    </string>
+
+    <string name="dot">&#8226;</string>
+    <string name="privacy1">On Honest Herd you are an anonymous user. We do not collect any personal information.</string>
+    <string name="privacy2">If you are well or unwell we do not share your share individual data with anyone.</string>
+    <string name="privacy3">We may provide scientific and medical communities with anonymised community data for research.</string>
+    <string name="byclicking">By clicking on the green check mark below, you agree to our:</string>
+
 
     <string name="pp_t">Privacy policy &amp; terms of use</string>
     <string name="english">English</string>
