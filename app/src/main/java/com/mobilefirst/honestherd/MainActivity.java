@@ -3,6 +3,7 @@ package com.mobilefirst.honestherd;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -14,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -24,9 +26,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.mobilefirst.honestherd.HHActivity.HHCoinHistoryActivity;
+import com.mobilefirst.honestherd.HHActivity.HHHealthStatusActivity;
 import com.mobilefirst.honestherd.HHActivity.HHTerms_activity;
+import com.mobilefirst.honestherd.HHActivity.IMSickActivity;
 import com.mobilefirst.honestherd.HHFregment.HHFeeling_well_Fragment;
 import com.mobilefirst.honestherd.HHFregment.HHMap_fregment;
 import com.mobilefirst.honestherd.HHFregment.HHNextStepFragment;
@@ -61,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     Map<String, Object> param = new HashMap<>();
+    AppCompatTextView txt_unique_user_id;
     AppCompatImageView img_drawer_menu, txt_cancel_drawer;
     public static LinearLayout linear_dateselect;
     public static HyperTrack hyperTrack;
@@ -148,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         img_globalmap = findViewById(R.id.img_globalmap);
         img_delete_account = findViewById(R.id.img_delete_account);
         img_help = findViewById(R.id.img_help);
+        txt_unique_user_id = findViewById(R.id.txt_unique_user_id);
 
 //        txt_logout = findViewById(R.id.txt_logout);
         img_drawer_menu = findViewById(R.id.img_drawer_menu);
@@ -202,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        txt_viewmap.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
 //        txt_datapolicy.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
 
+        txt_unique_user_id.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_date_map_fregment.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
         txt_month_map_fregment.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_MEDIUM));
 
@@ -218,6 +226,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         setCurrentDate();
+
+        txt_unique_user_id.setText(firebaseUser.getUid());
     }
 
     private void setCurrentDate() {
@@ -300,7 +310,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.img_help:{
-                OpenBrowser(Utils.WEBURL);
+                Intent intent = new Intent(MainActivity.this, IMSickActivity.class);
+                startActivity(intent);
+                CloseDrawer();
+//                OpenBrowser(Utils.WEBURL);
                 break;
             }
             case R.id.linear_totalcoin:{
@@ -340,7 +353,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }*/
             case R.id.img_delete_account:{
-                DeleteAccount_data();
+                LogOutAlertBox();
+//                DeleteAccount_data();
                 break;
             }
 
@@ -506,5 +520,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
+   void LogOutAlertBox(){
+
+       AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+
+       alertDialogBuilder.setTitle("Delete Account");
+       alertDialogBuilder.setMessage("Do you want to delete your Account?");
+       alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+           @RequiresApi(api = Build.VERSION_CODES.O)
+           @Override
+           public void onClick(DialogInterface dialog, int which) {
+//               Toast.makeText(MainActivity.this,"Yes",Toast.LENGTH_SHORT).show();
+               DeleteAccount_data();
+               dialog.dismiss();
+           }
+       });
+
+       alertDialogBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialog, int which) {
+//               Toast.makeText(MainActivity.this,"NO",Toast.LENGTH_SHORT).show();
+               dialog.dismiss();
+           }
+       });
+
+       AlertDialog alertDialog = alertDialogBuilder.create();
+
+       alertDialog.show();
+
+   }
 }
 //https://demonuts.com/android-google-map-in-fragment/

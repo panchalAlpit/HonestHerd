@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -164,6 +165,15 @@ public class HHTripHistoryActivity extends AppCompatActivity implements View.OnC
                 }else {
                     Log.e("TAG", "onClick:else btn_next" );
                 }
+                break;
+            }
+
+            case R.id.img_close_triphistory:{
+                Intent intent = new Intent(HHTripHistoryActivity.this, MainActivity.class);
+                intent.putExtra("screen", Utils.FRAGMENT_MAP);
+                // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
                 break;
             }
         }

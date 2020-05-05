@@ -141,8 +141,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_gravity="right"
-        android:background="@color/dark_color">
+        android:background="@color/background_color1"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
         <LinearLayout
             android:id="@+id/linear_header"
@@ -191,7 +193,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/linear_header"
-            app:layout_constraintBottom_toTopOf="@id/linear_bottom"
+            app:layout_constraintBottom_toTopOf="@id/linear_unique_user_id"
             android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -213,12 +215,30 @@
                 android:id="@+id/img_help"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/help"
+                android:src="@drawable/sad_icon"
                 android:layout_margin="25dp"
-                app:tint="@color/white" />
+                app:tint="@color/pink" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linear_unique_user_id"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/full_rectangle"
+            app:layout_constraintBottom_toTopOf="@id/linear_bottom">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_unique_user_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linear_bottom"
@@ -234,7 +254,7 @@
                 android:layout_height="50dp"
                 android:src="@drawable/delete"
                 app:tint="@color/white"
-                android:layout_margin="40dp"/>
+                android:layout_margin="30dp"/>
 
         </LinearLayout>
 

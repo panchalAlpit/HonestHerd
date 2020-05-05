@@ -68,6 +68,7 @@ public class HHCoinHistoryActivity extends AppCompatActivity implements View.OnC
 //                intent.putExtra("screen",Utils.FRAGMENT_TIRPHISTORY);
                 intent.putExtra("date",models.get(position).getSdate());
                 startActivity(intent);
+                finish();
 //                setResult(RESULT_OK,intent);
 //                finish();
             }
