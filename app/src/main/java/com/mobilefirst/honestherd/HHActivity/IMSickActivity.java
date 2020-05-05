@@ -3,6 +3,7 @@ package com.mobilefirst.honestherd.HHActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -43,14 +44,23 @@ public class IMSickActivity extends AppCompatActivity implements View.OnClickLis
       switch (v.getId()){
 
           case R.id.txt_covid19:{
+              NavigaionClass();
               break;
           }
           case R.id.txt_none_above:{
+              NavigaionClass();
               break;
           }
           case R.id.txt_influenza:{
+              NavigaionClass();
               break;
           }
       }
+    }
+
+   private void NavigaionClass(){
+        Intent intent = new Intent(IMSickActivity.this,HHStayHomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
