@@ -53,7 +53,6 @@ public class HHCoinHistoryActivity extends AppCompatActivity implements View.OnC
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         init();
-
     }
 
     private void init() {
@@ -64,11 +63,13 @@ public class HHCoinHistoryActivity extends AppCompatActivity implements View.OnC
         historyAdpater = new HHCoinHistoryAdpater(HHCoinHistoryActivity.this, getListOfDates(), new OnItemClickListener() {
             @Override
             public void OnItemClickListener(int position, ArrayList<HHDateModel> models) {
-                Intent intent = new Intent();
-                intent.putExtra("screen",Utils.FRAGMENT_TIRPHISTORY);
+
+                Intent intent = new Intent(HHCoinHistoryActivity.this,HHTripHistoryActivity.class);
+//                intent.putExtra("screen",Utils.FRAGMENT_TIRPHISTORY);
                 intent.putExtra("date",models.get(position).getSdate());
-                setResult(RESULT_OK,intent);
-                finish();
+                startActivity(intent);
+//                setResult(RESULT_OK,intent);
+//                finish();
             }
         });
         recycle_coinhistory.setAdapter(historyAdpater);
