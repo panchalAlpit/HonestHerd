@@ -107,11 +107,11 @@ public class HHHealthStatusActivity extends AppCompatActivity implements View.On
             }
             case R.id.linear_feel_sick_healthstatus:{
 
-                if (HHSharedPrefrence.getsaveHealthLogID(HHHealthStatusActivity.this).equals("")) {
+                /*if (HHSharedPrefrence.getsaveHealthLogID(HHHealthStatusActivity.this).equals("")) {
                     addHealthLog("FEELINGSICK");
                 } else {
                     updateHealthLog("FEELINGSICK");
-                }
+                }*/
                 Intent intent = new Intent(HHHealthStatusActivity.this,IMSickActivity.class);
                 startActivity(intent);
 

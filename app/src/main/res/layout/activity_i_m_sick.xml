@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="match_parent"
+<androidx.core.widget.NestedScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".HHActivity.IMSickActivity"
     android:scrollbars="none"
+
     android:background="@color/background_color">
 
 <androidx.appcompat.widget.LinearLayoutCompat
@@ -31,6 +32,11 @@
         android:layout_marginBottom="20dp"
         android:textColor="@color/white"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_diseases"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -38,7 +44,8 @@
         android:gravity="center"
         android:background="@drawable/border_rectangle_pink"
         android:layout_margin="20dp"
-        android:weightSum="10">
+        android:weightSum="10"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -83,7 +90,8 @@
         android:gravity="center"
         android:background="@drawable/border_rectangle_pink"
         android:layout_margin="20dp"
-        android:weightSum="10">
+        android:weightSum="10"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -119,14 +127,14 @@
 
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:background="@drawable/border_rectangle_lightgreen"
-        android:layout_margin="20dp">
+        android:layout_margin="20dp"
+        android:visibility="gone">
 
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -142,4 +150,4 @@
 
 </androidx.appcompat.widget.LinearLayoutCompat>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

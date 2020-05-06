@@ -266,7 +266,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(latLng);//icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new)
+        MarkerOptions markerOptions = new MarkerOptions().position(latLng).icon(getBitmapDescriptor(getActivity().getResources().getDrawable(R.drawable.current_icon)));
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         marker = googleMap.addMarker(markerOptions);
@@ -337,7 +337,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
                 currentLocation = location;
                 getAddressFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
                 LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng);//.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_icon_new))
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).icon(getBitmapDescriptor(getActivity().getResources().getDrawable(R.drawable.current_icon)));
 
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));

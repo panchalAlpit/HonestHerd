@@ -1,0 +1,96 @@
+[
+  {
+    "id": "1",
+    "name": "Covid 19",
+    "type": "sick"
+  },
+  {
+    "id": "2",
+    "name": "CRE",
+    "type": "sick"
+  },
+  {
+    "id": "3",
+    "name": "Ebola",
+    "type": "sick"
+  },
+  {
+    "id": "4",
+    "name": "Enterovirus D68",
+    "type": "sick"
+  },
+  {
+    "id": "5",
+    "name": "Hantavirus",
+    "type": "sick"
+  },
+  {
+    "id": "6",
+    "name": "Hepatitis A",
+    "type": "sick"
+  },
+  {
+    "id": "7",
+    "name": "Hepatitis B",
+    "type": "sick"
+  },
+  {
+    "id": "8",
+    "name": "Influenza (Flu)",
+    "type": "sick"
+  },
+  {
+    "id": "9",
+    "name": "Legionellosis",
+    "type": "sick"
+  },
+  {
+    "id": "10",
+    "name": "Measles",
+    "type": "sick"
+  },
+  {
+    "id": "11",
+    "name": "Meningitis",
+    "type": "sick"
+  },
+  {
+    "id": "12",
+    "name": "Mumps",
+    "type": "sick"
+  },
+  {
+    "id": "13",
+    "name": "MRSA",
+    "type": "sick"
+  },{
+  "id": "14",
+  "name": "Norovirus",
+  "type": "sick"
+},{
+  "id": "15",
+  "name": "Pertussis",
+  "type": "sick"
+},
+  {
+    "id": "16",
+    "name": "Scabies",
+    "type": "sick"
+  },
+  {
+    "id": "17",
+    "name": "Shigellosis",
+    "type": "sick"
+  },
+  {
+    "id": "18",
+    "name": "Tuberculosis",
+    "type": "sick"
+  },
+  {
+    "id": "19",
+    "name": "None of the above",
+    "type": "well"
+  }
+
+]
