@@ -93,5 +93,6 @@
     <string name="none_above">none of the above</string>
     <string name="stayhome">Please stay \n at home </string>
     <string name="checkfewday">We will check on you in a few days</string>
+    <string name="my_path_trace">My path trace </string>
 
 </resources>

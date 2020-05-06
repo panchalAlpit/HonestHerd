@@ -1,6 +1,7 @@
 package com.mobilefirst.honestherd.HHFregment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -26,6 +27,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.mobilefirst.honestherd.HHActivity.HHCoinHistoryActivity;
+import com.mobilefirst.honestherd.HHActivity.HHTripHistoryActivity;
 import com.mobilefirst.honestherd.HHGlobal.HHSharedPrefrence;
 import com.mobilefirst.honestherd.HHGlobal.Utils;
 import com.mobilefirst.honestherd.HHModel.HHUserGeopoint;
@@ -84,6 +87,7 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
      * @return A new instance of fragment HHMap_fregment.
      */
     // TODO: Rename and change types and number of parameters
+    AppCompatTextView txt_my_path_trace;
     static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private Location currentLocation;
     private GoogleMap mMap;
@@ -164,9 +168,12 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         txt_place = view.findViewById(R.id.txt_place);
         txt_walk = view.findViewById(R.id.txt_walk);
         txt_vehicle = view.findViewById(R.id.txt_vehicle);
+        txt_my_path_trace = view.findViewById(R.id.txt_my_path_trace);
+
         txt_vehicle.setTypeface(Typeface.createFromAsset(getContext().getResources().getAssets(), Utils.DIN_BOLD));
         txt_walk.setTypeface(Typeface.createFromAsset(getContext().getResources().getAssets(), Utils.DIN_BOLD));
         txt_place.setTypeface(Typeface.createFromAsset(getContext().getResources().getAssets(), Utils.DIN_BOLD));
+        txt_my_path_trace.setTypeface(Typeface.createFromAsset(getContext().getResources().getAssets(), Utils.DIN_BOLD));
 
 
 
@@ -383,6 +390,11 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
         switch (v.getId()){
             case R.id.linear_menu_history:{
                // ((MainActivity)getActivity()).addHistoryFragment(data.getStringExtra("date"));
+
+                Intent intent = new Intent(getContext(), HHTripHistoryActivity.class);
+//                intent.putExtra("screen",Utils.FRAGMENT_TIRPHISTORY);
+                intent.putExtra("date",Utils.getDateFromate("yyyy-MM-dd"));
+                startActivity(intent);
                 break;
             }
             case R.id.txt_vehicle:{

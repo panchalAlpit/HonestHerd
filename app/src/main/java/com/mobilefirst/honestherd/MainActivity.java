@@ -537,7 +537,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            }
        });
 
-       alertDialogBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+       alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
            @Override
            public void onClick(DialogInterface dialog, int which) {
 //               Toast.makeText(MainActivity.this,"NO",Toast.LENGTH_SHORT).show();

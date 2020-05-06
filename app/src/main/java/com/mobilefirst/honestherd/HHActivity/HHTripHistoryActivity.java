@@ -55,6 +55,8 @@ public class HHTripHistoryActivity extends AppCompatActivity implements View.OnC
         Log.e("TAG", "onClick:OnCreate btn_previous"+date_index+" ---- "+total_days );
         if (total_days == date_index){
             btn_previous.setVisibility(View.GONE);
+        }else {
+            btn_previous.setVisibility(View.VISIBLE);
         }
         txt_select_date.setText(Utils.getFormateDate("dd-MMMM-yyyy",selectdate));
     }
