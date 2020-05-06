@@ -196,7 +196,7 @@ public class IMSickActivity extends AppCompatActivity implements View.OnClickLis
         firebaseFirestore.collection(Utils.USER_HEALTHLOG).document(HHSharedPrefrence.getsaveHealthLogID(IMSickActivity.this)).update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-
+                Log.e("CheckStatuss", "onComplete: "+task.getResult() );
             }
         });
     }

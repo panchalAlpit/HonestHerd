@@ -214,7 +214,8 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
 
                                 markerOptions.position(new LatLng(document.getGeoPoint(Utils.lastLocation).getLatitude(),document.getGeoPoint(Utils.lastLocation).getLongitude()));
                                 hhUserGeopoint.setMarkerOptions(markerOptions);
-                                if (!firebaseUser.getUid().equals(document.get(Utils.FIREBASE_USERID))){
+//                                if (!firebaseUser.getUid().equals(document.get(Utils.FIREBASE_USERID)))
+                                {
                                     geopointArrayList.add(hhUserGeopoint);
                                 }
 
