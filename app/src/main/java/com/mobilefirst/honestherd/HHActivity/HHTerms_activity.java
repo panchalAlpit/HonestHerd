@@ -111,7 +111,7 @@ public class HHTerms_activity extends AppCompatActivity implements View.OnClickL
             public void updateDrawState(TextPaint textPaint) {
                 textPaint.setColor(getResources().getColor(R.color.white));    // you can use custom color
                 textPaint.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-                textPaint.setUnderlineText(false);    // this remove the underline
+                textPaint.setUnderlineText(true);    // this remove the underline
             }
         }, spanText.length() - userName.length(), spanText.length(), 0);
 
@@ -131,7 +131,7 @@ public class HHTerms_activity extends AppCompatActivity implements View.OnClickL
             public void updateDrawState(TextPaint textPaint) {
                 textPaint.setColor(getResources().getColor(R.color.white));    // you can use custom color   // you can use custom color
                 textPaint.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
-                textPaint.setUnderlineText(false);    // this remove the underline
+                textPaint.setUnderlineText(true);    // this remove the underline
             }
         }, spanText.length() - songName.length(), spanText.length(), 0);
 

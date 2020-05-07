@@ -15,6 +15,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -168,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         img_drawer_menu.setOnClickListener(this);
         txt_cancel_drawer.setOnClickListener(this);
 
+        txt_unique_user_id.setOnClickListener(this);
         linear_totalcoin.setOnClickListener(this);
         img_globalmap.setOnClickListener(this);
         img_delete_account.setOnClickListener(this);
@@ -319,6 +323,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.linear_totalcoin:{
                 Intent intent = new Intent(MainActivity.this, HHCoinHistoryActivity.class);
                 startActivityForResult(intent,2);
+                break;
+            }
+            case R.id.txt_unique_user_id:{
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("ID", txt_unique_user_id.getText());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(MainActivity.this,txt_unique_user_id.getText(),Toast.LENGTH_SHORT).show();
                 break;
             }
             /*

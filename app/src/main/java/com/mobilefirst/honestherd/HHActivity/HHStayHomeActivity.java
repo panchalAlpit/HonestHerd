@@ -2,8 +2,10 @@ package com.mobilefirst.honestherd.HHActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,7 +16,7 @@ import com.mobilefirst.honestherd.R;
 public class HHStayHomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     AppCompatImageView img_close_stayhome;
-
+    AppCompatTextView txt_stayhome,txt_checkfewday;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,11 @@ public class HHStayHomeActivity extends AppCompatActivity implements View.OnClic
 
     private void Init() {
         img_close_stayhome = findViewById(R.id.img_close_stayhome);
+        txt_stayhome = findViewById(R.id.txt_stayhome);
+        txt_checkfewday = findViewById(R.id.txt_checkfewday);
         img_close_stayhome.setOnClickListener(this);
+        txt_stayhome.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
+        txt_checkfewday.setTypeface(Typeface.createFromAsset(getAssets(), Utils.DIN_BOLD));
     }
 
     @Override

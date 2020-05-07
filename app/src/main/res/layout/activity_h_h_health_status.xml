@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,16 +7,14 @@
     tools:context=".HHActivity.HHHealthStatusActivity"
     android:background="@color/background_color">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background"
-            android:visibility="gone"/>
+
 
         <LinearLayout
+            android:id="@+id/linear_parent_health_status"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
@@ -34,12 +32,20 @@
                 app:textAllCaps="true"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/white"/>
+        </LinearLayout>
 
-
+    <LinearLayout
+        android:id="@+id/linear_subparent_health_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/linear_parent_health_status"
+        app:layout_constraintBottom_toBottomOf="parent">
             <LinearLayout
                 android:id="@+id/linear_feel_well_healthstatus"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="220dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:background="@drawable/border_rectangle_lightgreen"
@@ -57,7 +63,7 @@
             <LinearLayout
                 android:id="@+id/linear_feel_sick_healthstatus"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="220dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:background="@drawable/border_rectangle_pink"
@@ -72,6 +78,6 @@
                     app:tint="@color/pink_1"/>
 
             </LinearLayout>
+    </LinearLayout>
 
-        </LinearLayout>
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

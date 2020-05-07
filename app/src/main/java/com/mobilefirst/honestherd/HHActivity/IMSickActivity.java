@@ -35,6 +35,7 @@ import com.mobilefirst.honestherd.HHGlobal.OnItemClickListener_other;
 import com.mobilefirst.honestherd.HHGlobal.Utils;
 import com.mobilefirst.honestherd.HHModel.HHDateModel;
 import com.mobilefirst.honestherd.HHModel.HHDiseaseModel;
+import com.mobilefirst.honestherd.MainActivity;
 import com.mobilefirst.honestherd.R;
 
 import org.json.JSONArray;
@@ -104,22 +105,31 @@ public class IMSickActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void OnItemClickListener(int position, ArrayList<HHDiseaseModel> models) {
                 if (models.get(position).getType().equals("sick")){
+
                     if (HHSharedPrefrence.getsaveHealthLogID(IMSickActivity.this).equals("")) {
                         addHealthLog("FEELINGSICK");
                     } else {
                         updateHealthLog("FEELINGSICK");
                     }
+
+                    Intent intent = new Intent(IMSickActivity.this, HHStayHomeActivity.class);
+                    startActivity(intent);
+                    finish();
+
                 }else {
                     if (HHSharedPrefrence.getsaveHealthLogID(IMSickActivity.this).equals("")) {
                         addHealthLog("FEELINGWELL");
                     } else {
                         updateHealthLog("FEELINGWELL");
                     }
+
+                    Intent intent = new Intent(IMSickActivity.this, MainActivity.class);
+                    intent.putExtra("screen", Utils.FRAGMENT_MAP);
+                    startActivity(intent);
+                    finish();
                 }
 
-                Intent intent = new Intent(IMSickActivity.this, HHStayHomeActivity.class);
-                startActivity(intent);
-                finish();
+
             }
         });
         recycle_diseases.setLayoutManager(new LinearLayoutManager(IMSickActivity.this));
