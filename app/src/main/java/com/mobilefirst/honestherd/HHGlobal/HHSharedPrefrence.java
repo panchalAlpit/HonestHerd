@@ -10,6 +10,7 @@ public class HHSharedPrefrence {
     private static final String ADD_DATA = "add_data";
     private static final String HEALTHLOG_ID = "health_logid";
     private static final String HEALTH_STATUS = "health_status";
+    private static final String TOKEN = "token";
 
 
 
@@ -87,5 +88,22 @@ public class HHSharedPrefrence {
         SharedPreferences pref = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return pref.getString(HEALTH_STATUS,"");
     }
+
+
+    public static void setFirebaseToken(Context context,String status){
+        SharedPreferences prefSignupData = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+        editor = prefSignupData.edit();
+        editor.putString(TOKEN,status);
+        editor.apply();
+        editor.commit();
+    }
+
+    public static String getFirebaseToken(Context context){
+        SharedPreferences pref = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return pref.getString(TOKEN,"");
+    }
+
+
 
 }

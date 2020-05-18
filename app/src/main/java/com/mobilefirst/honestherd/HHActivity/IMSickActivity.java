@@ -175,6 +175,8 @@ public class IMSickActivity extends AppCompatActivity implements View.OnClickLis
         user.put(Utils.TIMESTAMP, FieldValue.serverTimestamp());
         user.put(Utils.USERS_TIMEZONE, tz.getID());
         user.put(Utils.lastLocation, getLastKnownLocation());
+        user.put(Utils.device_token,HHSharedPrefrence.getFirebaseToken(IMSickActivity.this));
+
         HHSharedPrefrence.setHealthStatus(IMSickActivity.this,status);
 
         // Add a new document with a generated ID
@@ -201,6 +203,7 @@ public class IMSickActivity extends AppCompatActivity implements View.OnClickLis
         user.put(Utils.HEALTHSTATUS, status);
         user.put(Utils.TIMESTAMP, FieldValue.serverTimestamp());
         user.put(Utils.lastLocation, getLastKnownLocation());
+        user.put(Utils.device_token,HHSharedPrefrence.getFirebaseToken(IMSickActivity.this));
         HHSharedPrefrence.setHealthStatus(IMSickActivity.this,status);
 
         firebaseFirestore.collection(Utils.USER_HEALTHLOG).document(HHSharedPrefrence.getsaveHealthLogID(IMSickActivity.this)).update(user).addOnCompleteListener(new OnCompleteListener<Void>() {

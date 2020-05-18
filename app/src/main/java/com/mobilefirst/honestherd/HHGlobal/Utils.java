@@ -54,6 +54,8 @@ public class Utils {
     public static final String TIMESTAMP = "timestamp";
     public static final String USERS_TIMEZONE = "usersTimezone";
     public static final String lastLocation = "lastLocation";
+    public static final String device_token = "devicetoken";
+
 
     public static final String HYPER_TRACK_DEVICEID = "hyperTrackDeviceID";
     public static final String PHONENUMBER = "phoneNumber";

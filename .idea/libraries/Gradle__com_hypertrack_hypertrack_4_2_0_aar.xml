@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.hypertrack:hypertrack:4.2.0@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/961a5cf7eaf765c8c5f5df33dd2078ef/jetified-hypertrack-4.2.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/238a98d0ed28e4154f0be65bd4122dc6/jetified-hypertrack-4.2.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/961a5cf7eaf765c8c5f5df33dd2078ef/jetified-hypertrack-4.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/961a5cf7eaf765c8c5f5df33dd2078ef/jetified-hypertrack-4.2.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/238a98d0ed28e4154f0be65bd4122dc6/jetified-hypertrack-4.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/238a98d0ed28e4154f0be65bd4122dc6/jetified-hypertrack-4.2.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hypertrack/hypertrack/4.2.0/e397edaa3b21584fcb0bdd071a744a34cef3e99b/hypertrack-4.2.0-javadoc.jar!/" />

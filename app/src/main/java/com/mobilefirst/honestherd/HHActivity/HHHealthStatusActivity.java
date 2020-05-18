@@ -28,6 +28,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.mobilefirst.honestherd.HHGlobal.HHSharedPrefrence;
 import com.mobilefirst.honestherd.HHGlobal.Utils;
 import com.mobilefirst.honestherd.MainActivity;
@@ -55,6 +57,14 @@ public class HHHealthStatusActivity extends AppCompatActivity implements View.On
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         init();
         fetchrecord();
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                String token = task.getResult().getToken();
+                Log.e("CheckToken", "onComplete: "+token );
+                HHSharedPrefrence.setFirebaseToken(HHHealthStatusActivity.this,token);
+            }
+        });
     }
 
     private void init() {
@@ -136,6 +146,7 @@ public class HHHealthStatusActivity extends AppCompatActivity implements View.On
         user.put(Utils.TIMESTAMP, FieldValue.serverTimestamp());
         user.put(Utils.USERS_TIMEZONE, tz.getID());
         user.put(Utils.lastLocation, getLastKnownLocation());
+        user.put(Utils.device_token,HHSharedPrefrence.getFirebaseToken(HHHealthStatusActivity.this));
         HHSharedPrefrence.setHealthStatus(HHHealthStatusActivity.this,status);
 
         // Add a new document with a generated ID
@@ -162,6 +173,7 @@ public class HHHealthStatusActivity extends AppCompatActivity implements View.On
         user.put(Utils.HEALTHSTATUS, status);
         user.put(Utils.TIMESTAMP, FieldValue.serverTimestamp());
         user.put(Utils.lastLocation, getLastKnownLocation());
+        user.put(Utils.device_token,HHSharedPrefrence.getFirebaseToken(HHHealthStatusActivity.this));
         HHSharedPrefrence.setHealthStatus(HHHealthStatusActivity.this,status);
 
         firebaseFirestore.collection(Utils.USER_HEALTHLOG).document(HHSharedPrefrence.getsaveHealthLogID(HHHealthStatusActivity.this)).update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
