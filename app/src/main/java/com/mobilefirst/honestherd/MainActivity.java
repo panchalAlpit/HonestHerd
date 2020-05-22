@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.mobilefirst.honestherd.HHActivity.HHCoinHistoryActivity;
 import com.mobilefirst.honestherd.HHActivity.HHHealthStatusActivity;
 import com.mobilefirst.honestherd.HHActivity.HHTerms_activity;
+import com.mobilefirst.honestherd.HHActivity.HHTripHistoryActivity;
 import com.mobilefirst.honestherd.HHActivity.IMSickActivity;
 import com.mobilefirst.honestherd.HHFregment.HHFeeling_well_Fragment;
 import com.mobilefirst.honestherd.HHFregment.HHMap_fregment;
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
     String screenName = "";
-    AppCompatImageView img_globalmap,img_delete_account,img_help;
+    AppCompatImageView img_globalmap,img_delete_account,img_help,img_profile;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -157,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         img_globalmap = findViewById(R.id.img_globalmap);
         img_delete_account = findViewById(R.id.img_delete_account);
         img_help = findViewById(R.id.img_help);
+        img_profile = findViewById(R.id.img_profile);
         txt_unique_user_id = findViewById(R.id.txt_unique_user_id);
 
 //        txt_logout = findViewById(R.id.txt_logout);
@@ -176,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         img_globalmap.setOnClickListener(this);
         img_delete_account.setOnClickListener(this);
         img_help.setOnClickListener(this);
+        img_profile.setOnClickListener(this);
 //        txt_viewmap.setOnClickListener(this);
 //        txt_share_world.setOnClickListener(this);
 //        txt_assessment_tool.setOnClickListener(this);
@@ -330,6 +333,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ClipData clip = ClipData.newPlainText("ID", txt_unique_user_id.getText());
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(MainActivity.this,txt_unique_user_id.getText(),Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.img_profile:{
+                Intent intent = new Intent(MainActivity.this, HHTripHistoryActivity.class);
+//                intent.putExtra("screen",Utils.FRAGMENT_TIRPHISTORY);
+                intent.putExtra("date",Utils.getDateFromate("yyyy-MM-dd"));
+                startActivity(intent);
                 break;
             }
             /*

@@ -151,6 +151,8 @@ public class HHMap_fregment extends Fragment implements OnMapReadyCallback, Loca
                 if (getContext() !=null){
                     MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(getContext(),R.raw.map_style);
                     mMap.setMapStyle(mapStyleOptions);
+                    mMap.getUiSettings().setZoomGesturesEnabled(false);
+                    mMap.getUiSettings().setZoomControlsEnabled(false);
                 }
 
 

@@ -207,6 +207,7 @@
                 android:layout_margin="25dp"/>
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_profile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/profile"
